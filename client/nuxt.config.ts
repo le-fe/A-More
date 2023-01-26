@@ -15,8 +15,7 @@ export default defineNuxtConfig({
     "unplugin-icons/nuxt",
     "@pinia/nuxt",
     "nuxt-windicss",
-    "@nuxtjs/i18n",
-    // "@intlify/nuxt3" (Node incompatible)
+    "@intlify/nuxt3",
   ],
   build: {
     postcss: {
@@ -43,12 +42,29 @@ export default defineNuxtConfig({
     ],
   },
   // localization - i18n config
-  //intlify: {
-  //  localeDir: "locales",
-  //  vueI18n: {
-  //    locale: "en",
-  //    fallbackLocale: "en",
-  //    availableLocales: ["en", "id", "ja", "ko"],
+  intlify: {
+    localeDir: "locales",
+    vueI18n: {
+      locale: "en",
+      fallbackLocale: "en",
+      availableLocales: ["en", "id", "ja", "ko"],
+    },
+  },
+  // vueuse
+  vueuse: {
+    ssrHandlers: true,
+  },
+  // windicss
+  //windicss: {
+  //  analyze: {
+  //    analysis: {
+  //      interpretUtilities: false,
+  //    },
+  //    server: {
+  //      port: 4500,
+  //      open: false,
+  //    },
   //  },
+  //  scan: true,
   //},
 });

@@ -5,33 +5,32 @@ const app = useAppConfig() as AppConfigInput;
 </script>
 <template>
   <div
-    class="relative z-10 flex items-center px-8 py-2 bg-white py-4 px-6 rounded-lg shadow"
+    class="relative z-10 flex items-center bg-white py-4 px-6 rounded-lg shadow"
   >
-    <div class="w-full shrink-0 text-left">
-      <div class="flex flex-col pb-5 text-center xl:pb-6 xl:pt-2">
-        <h1 class="text-3xl font-semibold my-4">Welcome Back, Please Login</h1>
+    <div class="w-full shrink-0 text-left md:w-[380px]">
+      <h1>{{ $t("pages.getting-started.title") }}</h1>
+      <div class="flex flex-col pb-5 text-center lg:pb-9 xl:pb-10 xl:pt-2">
+        <h2 class="text-3xl font-semibold my-4">Welcome to {{ app.name }}</h2>
         <div
           class="mt-1.5 text-13px leading-6 tracking-[0.2px] dark:text-light-900 lg:mt-2.5 xl:mt-3"
         >
-          Join your account. Don’t have account?
-          <NuxtLink :to="{ name: 'register' }">
-            <button
-              class="inline-flex font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
-            >
-              Create Account
-            </button>
-          </NuxtLink>
+          Create your account. Already have account?
+          <button
+            class="inline-flex font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
+          >
+            Login here
+          </button>
         </div>
       </div>
-      <form novalidate="" class="space-y-4 pt-4 lg:space-y-5">
+      <form novalidate="" class="space-y-4 lg:space-y-5">
         <div>
           <label class="block text-13px"
             ><span
               class="block cursor-pointer pb-2.5 font-normal text-dark/70 rtl:text-right dark:text-light/70"
-              >Email</span
+              >Name</span
             ><input
-              type="email"
-              name="email"
+              type="text"
+              name="name"
               class="h-11 w-full appearance-none rounded border border-light-500 bg-transparent px-4 py-2 text-13px text-dark ring-[0.5px] ring-light-500 focus:border-brand focus:ring-[0.5px] focus:ring-brand dark:border-dark-600 dark:text-light dark:ring-dark-600 dark:focus:border-brand dark:focus:ring-brand md:h-12 lg:px-5 xl:h-[50px] bg-light dark:bg-dark-300" />
             <div
               data-lastpass-icon-root="true"
@@ -43,6 +42,17 @@ const app = useAppConfig() as AppConfigInput;
               "
             ></div
           ></label>
+        </div>
+        <div>
+          <label class="block text-13px"
+            ><span
+              class="block cursor-pointer pb-2.5 font-normal text-dark/70 rtl:text-right dark:text-light/70"
+              >Email</span
+            ><input
+              type="email"
+              name="email"
+              class="h-11 w-full appearance-none rounded border border-light-500 bg-transparent px-4 py-2 text-13px text-dark ring-[0.5px] ring-light-500 focus:border-brand focus:ring-[0.5px] focus:ring-brand dark:border-dark-600 dark:text-light dark:ring-dark-600 dark:focus:border-brand dark:focus:ring-brand md:h-12 lg:px-5 xl:h-[50px] bg-light dark:bg-dark-300"
+          /></label>
         </div>
         <div>
           <label class="block text-13px"
@@ -85,30 +95,11 @@ const app = useAppConfig() as AppConfigInput;
               ></div></span
           ></label>
         </div>
-        <div
-          class="flex items-center justify-between space-x-5 rtl:space-x-reverse"
-        >
-          <label
-            class="group flex cursor-pointer items-center justify-between text-13px transition-all"
-            ><input
-              type="checkbox"
-              class="checkbox-component invisible absolute -z-[1] opacity-0"
-            /><span></span
-            ><span class="text-dark/70 ltr:ml-2.5 rtl:mr-2.5 dark:text-light/70"
-              >Remember me</span
-            ></label
-          ><button
-            type="button"
-            class="text-13px font-semibold text-brand hover:text-dark-400 hover:dark:text-light-500"
-          >
-            Forgot Password?
-          </button>
-        </div>
         <button
           class="transition-fill-colors flex items-center justify-center gap-2 font-semibold duration-200 pointer-events-auto cursor-pointer opacity-100 min-h-[46px] sm:h-12 rounded py-3 px-4 md:px-5 bg-brand text-white hover:bg-brand-dark focus:bg-brand-dark !mt-5 w-full text-sm tracking-[0.2px] lg:!mt-7"
           type="submit"
         >
-          Get Login
+          Register
         </button>
       </form>
     </div>

@@ -1,6 +1,6 @@
 # A-More
 
-A-More is the best open-source eCommerce platform.
+A-More is platform for couple.
 
 ### Key features
 

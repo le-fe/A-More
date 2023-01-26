@@ -8,7 +8,8 @@ export default {
   beforeRouteEnter(to, from, next) {
     try {
       const { $bus } = useNuxtApp();
-      if (from.name) {
+      const whiteListRouteNames = ["register"];
+      if (from.name && !whiteListRouteNames.includes(from.name)) {
         $bus.$emit("TRIGGER_MODAL", "LOGIN");
         window.history.pushState({}, null, to.path);
         next(false);

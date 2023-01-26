@@ -1,5 +1,5 @@
 export default defineAppConfig({
-  name: "Nuni",
+  name: "AMore",
   author: {
     name: "timle",
     link: "https://github.com/le-fe",
