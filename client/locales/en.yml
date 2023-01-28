@@ -32,6 +32,10 @@ pages:
     nav: getting started
     title: getting started
     description: this is a getting started page
+  login:
+    login: Login
+  register:
+    register: Register
   setting:
     nav: setting
     title: setting

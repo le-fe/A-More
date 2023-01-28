@@ -13,15 +13,17 @@ export default defineNuxtConfig({
   buildModules: ["@nuxt/postcss8", "@nuxt/typescript-build"],
   modules: [
     "unplugin-icons/nuxt",
-    "@pinia/nuxt",
-    "nuxt-windicss",
     "@intlify/nuxt3",
+    "@pinia/nuxt",
+    "@nuxtjs/tailwindcss",
+    "@formkit/nuxt",
   ],
   build: {
     postcss: {
       plugins: {
         tailwindcss: {},
         autoprefixer: {},
+        daisyui: {},
       },
     },
   },
@@ -54,17 +56,10 @@ export default defineNuxtConfig({
   vueuse: {
     ssrHandlers: true,
   },
-  // windicss
-  //windicss: {
-  //  analyze: {
-  //    analysis: {
-  //      interpretUtilities: false,
-  //    },
-  //    server: {
-  //      port: 4500,
-  //      open: false,
-  //    },
-  //  },
-  //  scan: true,
-  //},
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE_URL,
+      mediaBase: process.env.MEDIA_BASE_URL,
+    },
+  },
 });
