@@ -16,7 +16,7 @@ const loginUsername = ref<string>("test2321");
 const submitting = ref<boolean>(false);
 const avatarList = ref([]);
 const signupForm = ref({
-  name: "Test Account",
+  fullName: "Test Account",
   avatar: "",
   password: "TestAccount!@#",
   confirmPassword: "TestAccount!@#",
@@ -60,10 +60,15 @@ async function handleRegister() {
     formToSubmit["username"] = loginUsername.value;
     delete formToSubmit.confirmPassword;
     const response = await $api.auth.register(formToSubmit);
-    console.clear();
-    console.log(response);
+    if (response.ok) {
+      $toast(
+        "Success",
+        "Register successfully, please login into your account!",
+        "success"
+      );
+      activeStep.value = formStep.FILL_PASSWORD;
+    }
   } catch (error) {
-    console.log(error);
     $toast("Error", "Something goes wrong!", "error");
   }
 }
@@ -132,7 +137,7 @@ defineExpose({
           <FormKit
             class="mb-4"
             type="text"
-            v-model="signupForm.name"
+            v-model="signupForm.fullName"
             :name="`${app.name}-name`"
             :id="`${app.name}-name`"
             label="Your Full Name"

@@ -141,13 +141,13 @@ function moveProgressBar(element, duration) {
  * @param mixed element
  *
  */
-function removeWindToast(element) {
-  const target = element.target;
-  // Get target parent element
-  const parent =
-    target.parentElement.parentElement.parentElement.parentElement
-      .parentElement;
-  parent.remove();
-}
+//function removeWindToast(element) {
+//  const target = element.target;
+//  // Get target parent element
+//  const parent =
+//    target.parentElement.parentElement.parentElement.parentElement
+//      .parentElement;
+//  parent.remove();
+//}
 // Add to the window so we can use the function in the button
-window.removeWindToast = removeWindToast;
+//window.removeWindToast = removeWindToast;
