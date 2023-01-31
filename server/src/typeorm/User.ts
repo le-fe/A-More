@@ -5,11 +5,14 @@ export class User {
   @PrimaryGeneratedColumn({ type: 'bigint' })
   id: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, unique: true })
   username: string;
 
-  @Column({ nullable: false, unique: true })
+  @Column({ nullable: true, unique: true })
   email: string;
+
+  @Column({ nullable: false })
+  fullName: string;
 
   @Column({ nullable: false })
   password: string;
@@ -23,6 +26,6 @@ export class User {
   @Column({ nullable: false, type: 'timestamp', name: 'update_at' })
   updateAt: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   role: string;
 }

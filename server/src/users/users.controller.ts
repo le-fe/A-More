@@ -70,6 +70,13 @@ export class UsersController {
     return req.user;
   }
 
+  @Get('available/:username')
+  async checkUserAvailable(@Param('username') username: string) {
+    const existedUser = await this.usersService.findOne({ username });
+    const result = !Boolean(existedUser);
+    return { result, status: HttpStatus.OK };
+  }
+
   @Put('update/:userId')
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)

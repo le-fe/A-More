@@ -14,6 +14,11 @@ export class CreateUserDto {
   username: string;
 
   @IsNotEmpty()
+  fullName: string;
+
+  imgUrl: string;
+
+  @IsNotEmpty()
   @IsEmail()
   @MaxLength(30)
   email: string;
