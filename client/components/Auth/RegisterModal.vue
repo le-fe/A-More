@@ -21,6 +21,10 @@ const signupForm = ref({
   password: "TestAccount!@#",
   confirmPassword: "TestAccount!@#",
 });
+const loginForm = ref({
+  username: "",
+  password: "",
+});
 
 generateAvatarList();
 function generateAvatarList() {
@@ -80,11 +84,19 @@ defineExpose({
 <template>
   <div class="relative z-10 flex items-center bg-white py-4 rounded-lg shadow">
     <div
-      class="w-full px-6 shrink-0 text-left md:w-[580px] max-h-[80vh] overflow-y-auto"
+      class="
+        w-full
+        px-6
+        shrink-0
+        text-left
+        md:w-[580px]
+        max-h-[80vh]
+        overflow-y-auto
+      "
     >
       <div class="flex items-center pb-2 xl:pt-2 sticky top-0 bg-white z-10">
         <Icon size="xl" name="logo" />
-        <h2 class="text-2xl font-semibold">Register to {{ app.name }}</h2>
+        <h2 class="text-2xl font-semibold">Welcome to {{ app.name }}</h2>
       </div>
       <template v-if="activeStep === formStep.FILL_USERNAME">
         <div class="space-y-4 lg:space-y-5">
@@ -98,6 +110,31 @@ defineExpose({
               v-model="loginUsername"
               help="Please enter a username between 5 and 16 characters long."
               placeholder="Type here"
+            />
+          </FormKit>
+        </div>
+      </template>
+      <template v-if="activeStep === formStep.FILL_PASSWORD">
+        <div class="space-y-4 lg:space-y-5">
+          <FormKit type="form" submit-label="Log in">
+            <FormKit
+              type="text"
+              :name="`${app.name}-username`"
+              :id="`${app.name}-username`"
+              validation="required|length:5,16"
+              label="Your username"
+              v-model="loginForm.username"
+              help="Please enter a username between 5 and 16 characters long."
+              placeholder="Type here"
+            />
+            <FormKit
+              class="mb-4"
+              v-model="loginForm.password"
+              type="password"
+              name="password"
+              label="Password"
+              validation="required|?length:10"
+              placeholder="Please enter password"
             />
           </FormKit>
         </div>

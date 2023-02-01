@@ -31,7 +31,26 @@ const menus = computed((): IMenuItem[] => [
 
 <template>
   <header
-    class="app-header sticky top-0 bg-white z-30 flex h-16 w-full items-center justify-between border-b border-light-300 bg-light py-1 px-4 ltr:left-0 rtl:right-0 dark:border-dark-300 dark:bg-dark-250 sm:h-[70px] sm:px-6"
+    class="
+      app-header
+      sticky
+      top-0
+      bg-white
+      z-30
+      flex
+      h-16
+      w-full
+      items-center
+      justify-between
+      border-b border-light-300
+      bg-light
+      py-1
+      px-4
+      ltr:left-0
+      rtl:right-0
+      dark:border-dark-300 dark:bg-dark-250
+      sm:h-[70px] sm:px-6
+    "
   >
     <div class="flex items-center gap-4">
       <div v-if="route.meta.title" class="font-semibold text-2xl">
@@ -40,7 +59,25 @@ const menus = computed((): IMenuItem[] => [
     </div>
     <div class="relative flex items-center gap-5 pr-0.5 xs:gap-6 sm:gap-7">
       <button
-        class="transition-fill-colors flex items-center justify-center gap-2 font-semibold duration-200 pointer-events-auto cursor-pointer opacity-100 transition-colors duration-200 text-dark-800 hover:text-dark-900 dark:hover:text-light-600 hidden sm:flex"
+        class="
+          transition-fill-colors
+          flex
+          items-center
+          justify-center
+          gap-2
+          font-semibold
+          duration-200
+          pointer-events-auto
+          cursor-pointer
+          opacity-100
+          transition-colors
+          duration-200
+          text-dark-800
+          hover:text-dark-900
+          dark:hover:text-light-600
+          hidden
+          sm:flex
+        "
         aria-label="Search"
       >
         <svg
@@ -57,7 +94,25 @@ const menus = computed((): IMenuItem[] => [
           ></path>
         </svg></button
       ><button
-        class="transition-fill-colors flex items-center justify-center gap-2 font-semibold duration-200 pointer-events-auto cursor-pointer opacity-100 transition-colors duration-200 text-dark-800 hover:text-dark-900 dark:hover:text-light-600 h-7 w-7"
+        class="
+          transition-fill-colors
+          flex
+          items-center
+          justify-center
+          gap-2
+          font-semibold
+          duration-200
+          pointer-events-auto
+          cursor-pointer
+          opacity-100
+          transition-colors
+          duration-200
+          text-dark-800
+          hover:text-dark-900
+          dark:hover:text-light-600
+          h-7
+          w-7
+        "
         aria-label="Theme Switcher"
       >
         <span class="absolute"
@@ -105,7 +160,25 @@ const menus = computed((): IMenuItem[] => [
             ></path></svg
         ></span></button
       ><button
-        class="transition-fill-colors flex items-center justify-center gap-2 font-semibold duration-200 pointer-events-auto cursor-pointer opacity-100 transition-colors duration-200 text-dark-800 hover:text-dark-900 dark:hover:text-light-600 hidden 2xl:flex 2xl:w-5"
+        class="
+          transition-fill-colors
+          flex
+          items-center
+          justify-center
+          gap-2
+          font-semibold
+          duration-200
+          pointer-events-auto
+          cursor-pointer
+          opacity-100
+          transition-colors
+          duration-200
+          text-dark-800
+          hover:text-dark-900
+          dark:hover:text-light-600
+          hidden
+          2xl:flex 2xl:w-5
+        "
         aria-label="Layout"
       >
         <svg
@@ -128,7 +201,25 @@ const menus = computed((): IMenuItem[] => [
           ></path>
         </svg></button
       ><button
-        class="transition-fill-colors flex items-center justify-center gap-2 font-semibold duration-200 pointer-events-auto cursor-pointer opacity-100 transition-colors duration-200 text-dark-800 hover:text-dark-900 dark:hover:text-light-600 hidden sm:flex"
+        class="
+          transition-fill-colors
+          flex
+          items-center
+          justify-center
+          gap-2
+          font-semibold
+          duration-200
+          pointer-events-auto
+          cursor-pointer
+          opacity-100
+          transition-colors
+          duration-200
+          text-dark-800
+          hover:text-dark-900
+          dark:hover:text-light-600
+          hidden
+          sm:flex
+        "
         aria-label="Cart"
       >
         <span class="relative flex items-center"
@@ -143,7 +234,25 @@ const menus = computed((): IMenuItem[] => [
               fill="currentColor"
             ></path></svg
           ><span
-            class="absolute -top-3 -right-2.5 flex min-h-[20px] min-w-[20px] shrink-0 items-center justify-center rounded-full border-2 border-light-100 bg-brand px-0.5 text-10px font-bold leading-none text-light dark:border-dark-250"
+            class="
+              absolute
+              -top-3
+              -right-2.5
+              flex
+              min-h-[20px] min-w-[20px]
+              shrink-0
+              items-center
+              justify-center
+              rounded-full
+              border-2 border-light-100
+              bg-brand
+              px-0.5
+              text-10px
+              font-bold
+              leading-none
+              text-light
+              dark:border-dark-250
+            "
             >0</span
           ></span
         ></button
@@ -151,12 +260,52 @@ const menus = computed((): IMenuItem[] => [
         href="https://pixer-react-admin.vercel.app/register"
         target="_blank"
         rel="noreferrer"
-        class="focus:ring-accent-700 hidden h-9 shrink-0 items-center justify-center rounded border border-transparent bg-brand px-3 py-0 text-sm font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-brand-dark focus:shadow focus:outline-none focus:ring-1 sm:inline-flex"
+        class="
+          focus:ring-accent-700
+          hidden
+          h-9
+          shrink-0
+          items-center
+          justify-center
+          rounded
+          border border-transparent
+          bg-brand
+          px-3
+          py-0
+          text-sm
+          font-semibold
+          leading-none
+          text-light
+          outline-none
+          transition
+          duration-300
+          ease-in-out
+          hover:bg-brand-dark
+          focus:shadow focus:outline-none focus:ring-1
+          sm:inline-flex
+        "
         >Become a seller</a
       >
-      <NuxtLink :to="{ name: 'login' }">
+      <NuxtLink :to="{ name: 'auth' }">
         <button
-          class="transition-fill-colors flex items-center justify-center gap-2 font-semibold duration-200 pointer-events-auto cursor-pointer opacity-100 transition-colors duration-200 text-dark-800 hover:text-dark-900 dark:hover:text-light-600 flex"
+          class="
+            transition-fill-colors
+            flex
+            items-center
+            justify-center
+            gap-2
+            font-semibold
+            duration-200
+            pointer-events-auto
+            cursor-pointer
+            opacity-100
+            transition-colors
+            duration-200
+            text-dark-800
+            hover:text-dark-900
+            dark:hover:text-light-600
+            flex
+          "
           aria-label="User"
         >
           <svg

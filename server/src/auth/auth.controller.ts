@@ -62,7 +62,7 @@ export class AuthController {
 
     return {
       ok: true,
-      message: 'Login Success!',
+      message: 'Register successfully!',
       status: HttpStatus.CREATED,
       token: token,
     };

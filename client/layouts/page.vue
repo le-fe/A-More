@@ -49,7 +49,7 @@ function hideModal(isBack?: boolean) {
     <slot name="app-after" />
     <div id="app-after"></div>
     <Modal v-model="showModal" @close="hideModal(true)">
-      <AuthLoginModal v-if="activeModal === 'LOGIN'" />
+      <AuthRegisterModal v-if="activeModal === 'LOGIN'" />
     </Modal>
   </div>
 </template>
