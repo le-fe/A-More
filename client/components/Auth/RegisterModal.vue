@@ -2,9 +2,15 @@
 import { ref } from "vue";
 import { AppConfigInput } from "@nuxt/schema";
 import { sample, cloneDeep } from "lodash";
+import { useRouter } from "vue-router";
+import { useAuthStore } from "../../store/auth";
 
-const { $api, $config, $toast } = useNuxtApp();
+const { $api, $config, $toast, $bus } = useNuxtApp();
+const router = useRouter();
+const { t } = useLang();
 const app = useAppConfig() as AppConfigInput;
+const authStore = useAuthStore();
+
 const formStep = {
   FILL_USERNAME: "FILL_USERNAME",
   FILL_PASSWORD: "FILL_PASSWORD",
@@ -12,7 +18,8 @@ const formStep = {
 };
 
 const activeStep = ref<string>(formStep.FILL_USERNAME);
-const loginUsername = ref<string>("test2321");
+const loginUsername = ref<string>("timle");
+const loginPassword = ref<string>("chelsea39");
 const submitting = ref<boolean>(false);
 const avatarList = ref([]);
 const signupForm = ref({
@@ -21,10 +28,7 @@ const signupForm = ref({
   password: "TestAccount!@#",
   confirmPassword: "TestAccount!@#",
 });
-const loginForm = ref({
-  username: "",
-  password: "",
-});
+const errorText = ref<string>("");
 
 generateAvatarList();
 function generateAvatarList() {
@@ -77,12 +81,47 @@ async function handleRegister() {
   }
 }
 
-defineExpose({
-  loginUsername,
-});
+async function handleLogin() {
+  try {
+    errorText.value = "";
+    const formToSubmit = {
+      username: loginUsername.value,
+      password: loginPassword.value,
+    };
+    const res = await $api.auth.login(formToSubmit);
+    if (res.token) {
+      authStore.setToken(res.token);
+      $bus.$emit("TRIGGER_MODAL", { modal: "LOGIN", opened: false });
+      // router.push({ name: "index" });
+      window.location.href = "/";
+    } else {
+      const msgText = res.massage || "Something goes wrong!";
+      errorText.value = msgText;
+      $toast("Error", msgText, "error");
+    }
+  } catch (error) {
+    console.log(error);
+    const msgText = error.response?._data?.message || "Something goes wrong!";
+    errorText.value = msgText;
+    $toast("Error", msgText, "error");
+  }
+}
 </script>
 <template>
-  <div class="relative z-10 flex items-center bg-white py-4 rounded-lg shadow">
+  <div
+    class="
+      relative
+      z-10
+      flex
+      justify-center
+      items-center
+      bg-white
+      rounded-lg
+      shadow
+      text-center
+      py-12
+    "
+  >
     <div
       class="
         w-full
@@ -108,6 +147,7 @@ defineExpose({
               validation="required|length:5,16"
               label="Your username"
               v-model="loginUsername"
+              spellcheck="false"
               help="Please enter a username between 5 and 16 characters long."
               placeholder="Type here"
             />
@@ -116,27 +156,32 @@ defineExpose({
       </template>
       <template v-if="activeStep === formStep.FILL_PASSWORD">
         <div class="space-y-4 lg:space-y-5">
-          <FormKit type="form" submit-label="Log in">
-            <FormKit
-              type="text"
-              :name="`${app.name}-username`"
-              :id="`${app.name}-username`"
-              validation="required|length:5,16"
-              label="Your username"
-              v-model="loginForm.username"
-              help="Please enter a username between 5 and 16 characters long."
-              placeholder="Type here"
-            />
+          <div>
+            <span class="">{{ t("pages.auth.welcomeback") }}</span>
+            <span class="font-semibold ml-1 text-lg">{{ loginUsername }},</span>
+            <span class="ml-1">
+              {{ t("pages.auth.please_login_your_account") }},
+            </span>
+          </div>
+          <FormKit
+            type="form"
+            :submit-label="t('pages.auth.login')"
+            @submit="handleLogin"
+          >
             <FormKit
               class="mb-4"
-              v-model="loginForm.password"
+              v-model="loginPassword"
+              autofocus
               type="password"
               name="password"
               label="Password"
-              validation="required|?length:10"
+              validation="required"
               placeholder="Please enter password"
             />
           </FormKit>
+          <div v-if="errorText">
+            <span class="text-red-600">{{ errorText }}</span>
+          </div>
         </div>
       </template>
       <template v-else-if="activeStep === formStep.FILL_SIGNUP">
@@ -186,7 +231,7 @@ defineExpose({
             type="password"
             name="password"
             label="Password"
-            validation="required|?length:10"
+            validation="required|?length:4"
             :validation-messages="{
               length: 'Try to make your password longer!',
             }"

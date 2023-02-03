@@ -60,6 +60,9 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_BASE_URL,
       mediaBase: process.env.MEDIA_BASE_URL,
+      _cookieKey: {
+        authToken: process.env.APP_TOKEN_KEY,
+      },
     },
   },
 });

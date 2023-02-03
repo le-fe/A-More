@@ -1,4 +1,5 @@
 import { $Fetch } from "ohmyfetch";
+import { useAuthCookie } from "../composables/useAuthCookie";
 
 class HttpFactory {
   private $fetch: $Fetch;
@@ -17,7 +18,19 @@ class HttpFactory {
     data?: object,
     extras = {}
   ): Promise<T> {
-    const $res: T = await this.$fetch(url, { method, body: data, ...extras });
+    const authCookie = useAuthCookie();
+    let headers = {};
+    if (authCookie.value) {
+      headers = {
+        Authorization: `Bearer ${authCookie.value}`,
+      };
+    }
+    const $res: T = await this.$fetch(url, {
+      headers,
+      method,
+      body: data,
+      ...extras,
+    });
     return $res;
   }
 }

@@ -9,7 +9,7 @@ export default {
     try {
       const { $bus } = useNuxtApp();
       if (from.name) {
-        $bus.$emit("TRIGGER_MODAL", "LOGIN");
+        $bus.$emit("TRIGGER_MODAL", { modal: "LOGIN", opened: true });
         window.history.pushState({}, null, to.path);
         next(false);
       } else {

@@ -32,9 +32,10 @@ pages:
     nav: getting started
     title: getting started
     description: this is a getting started page
-  login:
+  auth:
+    welcomeback: Welcome back
+    please_login_your_account: please login your account
     login: Login
-  register:
     register: Register
   setting:
     nav: setting

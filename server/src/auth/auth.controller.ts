@@ -3,17 +3,22 @@ import {
   Controller,
   HttpStatus,
   Inject,
+  Get,
   Post,
   Put,
   UnauthorizedException,
   UsePipes,
   ValidationPipe,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { comparePassword } from '../utils/bcrypt';
 import { SignInDto } from './dto/SignIn.dto';
 import { RegisterDto } from './dto/Register.dto';
+import { JwtAuthGuard } from '../auth/guard/JwtAuth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -25,8 +30,8 @@ export class AuthController {
   @Post('login')
   @UsePipes(ValidationPipe)
   async login(@Body() signInDto: SignInDto) {
-    const email = signInDto.email;
-    const user = await this.usersService.findOne({ email });
+    const username = signInDto.username;
+    const user = await this.usersService.findOne({ username });
 
     if (!user) {
       throw new UnauthorizedException('invalid credentials');
@@ -38,12 +43,13 @@ export class AuthController {
 
     const token = await this.jwtService.signAsync({
       id: user.id,
-      email: user.email,
+      username: user.username,
     });
 
     return {
-      massage: 'Login Success!',
-      status: HttpStatus.CREATED,
+      message: 'Login Success!',
+      ok: true,
+      status: HttpStatus.OK,
       token: token,
     };
   }
@@ -80,6 +86,16 @@ export class AuthController {
     const messageCode = isExisted
       ? mappingCode.USER_EXISTED
       : mappingCode.USER_NOT_EXISTED;
-    return { status: HttpStatus.OK, messageCode };
+    return { ok: true, status: HttpStatus.OK, messageCode };
+  }
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  getUser(@Req() req: Request) {
+    return {
+      ok: true,
+      status: HttpStatus.OK,
+      data: req.user,
+    };
   }
 }

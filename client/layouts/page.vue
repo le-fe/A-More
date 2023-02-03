@@ -12,7 +12,7 @@ const activeModal = ref<string>("");
 watch(
   route,
   (to, from) => {
-    hideModal();
+    hideModalAuth();
   },
   {
     deep: true,
@@ -20,13 +20,20 @@ watch(
 );
 
 onMounted(() => {
-  $bus.$on("TRIGGER_MODAL", (modal: string) => {
-    showModal.value = true;
-    activeModal.value = modal;
-  });
+  $bus.$on(
+    "TRIGGER_MODAL",
+    ({ modal, opened }: { modal: string; opened: boolean }) => {
+      if (modal === "LOGIN" && opened === false) {
+        hideModalAuth(true);
+      } else {
+        showModal.value = opened;
+        activeModal.value = opened ? modal : "";
+      }
+    }
+  );
 });
 
-function hideModal(isBack?: boolean) {
+function hideModalAuth(isBack?: boolean) {
   if (isBack) {
     router.go(-1);
   } else {
@@ -48,7 +55,7 @@ function hideModal(isBack?: boolean) {
     </div>
     <slot name="app-after" />
     <div id="app-after"></div>
-    <Modal v-model="showModal" @close="hideModal(true)">
+    <Modal v-model="showModal" @close="hideModalAuth(true)">
       <AuthRegisterModal v-if="activeModal === 'LOGIN'" />
     </Modal>
   </div>

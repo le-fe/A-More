@@ -34,6 +34,10 @@ class AuthModule extends HttpFactory {
       account
     );
   }
+
+  async me() {
+    return await this.call("GET", `${this.RESOURCE}/me`);
+  }
 }
 
 export default AuthModule;
