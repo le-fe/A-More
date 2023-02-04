@@ -17,10 +17,12 @@ export const useAuthStore = defineStore({
       this.token = token;
     },
     async queryMe() {
-      const { $api } = useNuxtApp();
-      const res = await $api.auth.me();
-      if (res.ok) {
-        this.me = res.data;
+      if (this.token) {
+        const { $api } = useNuxtApp();
+        const res = await $api.auth.me();
+        if (res.ok) {
+          this.me = res.data;
+        }
       }
       this.isLoadedMe = true;
     },

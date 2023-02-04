@@ -29,7 +29,7 @@ function handleClickoutside() {
   >
     <div
       v-click-outside="handleClickoutside"
-      class="relative w-full h-full max-w-2xl md:h-auto bg-white"
+      class="relative w-full h-full max-w-xl md:h-auto bg-white rounded-lg"
     >
       <!-- Modal content -->
       <slot />

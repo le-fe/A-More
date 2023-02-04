@@ -1,3 +1,9 @@
+core:
+  login: Login
+  register: Register
+  profile: Profile
+user:
+  totalUsers: "Total users"
 components:
   language_switcher:
     change_language: change language

@@ -1,4 +1,4 @@
-import { Exclude } from 'class-transformer';
+import { Exclude, plainToClassFromExist } from 'class-transformer';
 
 export class SerializedUser {
   id: number;
@@ -14,5 +14,22 @@ export class SerializedUser {
 
   constructor(partial: Partial<SerializedUser>) {
     Object.assign(this, partial);
+  }
+}
+
+export class SerializedUserList {
+  id: number;
+  username: string;
+  email: string;
+  imgUrl: string;
+
+  constructor(partial: Partial<SerializedUserList>) {
+    return Object.assign(this, partial);
+    //return {
+    //  id: 2,
+    //  username: 'string',
+    //  email: 'string',
+    //  imgUrl: 'string',
+    //};
   }
 }

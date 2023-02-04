@@ -33,17 +33,20 @@ export class UsersController {
     @Inject('USERS_SERVICE') private readonly usersService: UsersService,
   ) {}
 
-  @Get()
+  @Get('top-authors')
   //@hasRoles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
   //@UseGuards(JwtAuthGuard, RolesGuard)
   //@UseInterceptors(ClassSerializerInterceptor)
-  async getUsers() {
+  async getTopAuthors() {
     const users = await this.usersService.getAllUsers();
     if (!users[0]) {
       throw new HttpException('Users is null', HttpStatus.BAD_REQUEST);
     }
 
-    return users;
+    return {
+      ok: true,
+      data: users,
+    };
   }
 
   @Post('create')
@@ -139,14 +142,14 @@ export class UsersController {
     return { message: 'User Updated', status: HttpStatus.OK };
   }
 
-  @Get('length')
-  @UseGuards(JwtAuthGuard)
+  @Get('total')
   async fetchLengthUsers() {
     const users = await this.usersService.getAllUsers();
 
     return {
+      ok: true,
       status: HttpStatus.OK,
-      length: users.length,
+      data: users.length,
     };
   }
 }

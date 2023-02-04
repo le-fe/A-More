@@ -109,31 +109,14 @@ async function handleLogin() {
 </script>
 <template>
   <div
-    class="
-      relative
-      z-10
-      flex
-      justify-center
-      items-center
-      bg-white
-      rounded-lg
-      shadow
-      text-center
-      py-12
-    "
+    class="relative z-10 flex justify-center items-center bg-white rounded-lg shadow text-center"
   >
     <div
-      class="
-        w-full
-        px-6
-        shrink-0
-        text-left
-        md:w-[580px]
-        max-h-[80vh]
-        overflow-y-auto
-      "
+      class="w-full px-6 py-6 shrink-0 text-left max-h-[80vh] overflow-y-auto"
     >
-      <div class="flex items-center pb-2 xl:pt-2 sticky top-0 bg-white z-10">
+      <div
+        class="flex items-center pb-2 xl:pt-2 sticky top-0 bg-white z-10 mb-2"
+      >
         <Icon size="xl" name="logo" />
         <h2 class="text-2xl font-semibold">Welcome to {{ app.name }}</h2>
       </div>

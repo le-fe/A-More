@@ -10,6 +10,7 @@ export interface IMenuItem {
   route?: any;
 }
 
+const { t } = useLang();
 const route = useRoute();
 const app = useAppConfig() as AppConfigInput;
 const auth = useAuthStore();
@@ -38,27 +39,9 @@ function handleLogout() {
 
 <template>
   <header
-    class="
-      app-header
-      sticky
-      top-0
-      bg-white
-      z-30
-      flex
-      h-16
-      w-full
-      items-center
-      justify-between
-      border-b border-light-300
-      bg-light
-      py-1
-      ltr:left-0
-      rtl:right-0
-      dark:border-dark-300 dark:bg-dark-250
-      sm:h-[70px]
-    "
+    class="app-header sticky top-0 bg-white z-30 flex h-16 w-full items-center justify-between border-b border-light-300 bg-light py-1 ltr:left-0 rtl:right-0 dark:border-dark-300 dark:bg-dark-250 sm:h-[70px]"
   >
-    <div class="navbar">
+    <div class="navbar px-6">
       <div class="flex-1 px-2 lg:flex-none">
         <div class="flex items-center gap-4">
           <div v-if="route.meta.title" class="font-semibold text-2xl">
@@ -67,58 +50,39 @@ function handleLogout() {
         </div>
       </div>
       <div class="flex items-center justify-end flex-1">
-        <div class="flex items-stretch pr-8">
+        <div class="flex items-stretch">
           <a class="btn btn-ghost rounded-btn mr-4">Button</a>
           <template v-if="auth.authUser">
             <div class="dropdown dropdown-end">
               <label
                 tabindex="0"
-                class="ml-1 h-full flex items-center cursor-pointer"
+                class="ml-1 h-full flex items-center cursor-pointer btn"
               >
-                <div class="font-semibold">
+                <div class="avatar">
+                  <div class="w-8 mask mask-hexagon">
+                    <img :src="auth.authUser.imgUrl" />
+                  </div>
+                </div>
+                <div class="font-semibold ml-2">
                   {{ auth.authUser.fullName }}
                 </div>
               </label>
               <ul
                 tabindex="0"
-                class="
-                  dropdown-content
-                  menu
-                  p-2
-                  shadow
-                  bg-base-100
-                  rounded-box
-                  w-52
-                "
+                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <li><a>Item 1</a></li>
+                <li>
+                  <a>{{ t("core.profile") }}</a>
+                </li>
                 <li><a @click="handleLogout">Log out</a></li>
               </ul>
             </div>
           </template>
           <template v-else>
             <NuxtLink :to="{ name: 'auth' }">
-              <button
-                class="
-                  transition-fill-colors
-                  flex
-                  items-center
-                  justify-center
-                  gap-2
-                  font-semibold
-                  duration-200
-                  pointer-events-auto
-                  cursor-pointer
-                  opacity-100
-                  transition-colors
-                  text-dark-800
-                  hover:text-dark-900
-                  dark:hover:text-light-600
-                "
-                aria-label="User"
-              >
-                Login
-              </button>
+              <CButton>
+                {{ t("core.login") }} / {{ t("core.register") }}
+              </CButton>
             </NuxtLink>
           </template>
         </div>

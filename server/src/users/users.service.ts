@@ -6,7 +6,8 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/CreateUser.dto';
 import { UpdateAvatarDto } from './dto/UpdateAvatar.dto';
 import { UpdateUserDto } from './dto/UpdateUser.dto';
-import { SerializedUser } from './SerializedUser';
+import { SerializedUser, SerializedUserList } from './SerializedUser';
+import { plainToClassFromExist } from 'class-transformer';
 
 @Injectable()
 export class UsersService {
@@ -34,7 +35,7 @@ export class UsersService {
 
   async getAllUsers() {
     const users = await this.userRepository.find();
-    return users.map((user) => new SerializedUser(user));
+    return users.map((user) => new SerializedUserList(user));
   }
 
   async findOne(condition: any) {
