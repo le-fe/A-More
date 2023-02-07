@@ -36,9 +36,11 @@
 		"axios": "^1.2.5",
 		"click-outside-vue3": "^4.0.1",
 		"daisyui": "^2.49.0",
+		"konva": "^8.4.2",
 		"mitt": "^3.0.0",
 		"nuxt": "latest",
 		"pinia": "^2.0.28",
-		"postcss": "^8.4.21"
+		"postcss": "^8.4.21",
+		"vue-konva": "^3.0.2"
 	}
 }

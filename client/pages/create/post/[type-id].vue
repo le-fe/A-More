@@ -220,7 +220,7 @@ async function fetchCategory() {
             style="height: 75vh"
           >
             <div class="h-full w-full flex items-center justify-center">
-              Drag and Drop an element
+              <CreatePostCanvas />
             </div>
           </div>
         </div>

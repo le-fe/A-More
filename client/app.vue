@@ -25,7 +25,7 @@ useHead({
   link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
 });
 
-authStore.queryMe().then(() => {
+authStore.queryMe().finally(() => {
   isLoaded.value = true;
 });
 </script>

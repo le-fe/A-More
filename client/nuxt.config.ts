@@ -26,6 +26,7 @@ export default defineNuxtConfig({
         daisyui: {},
       },
     },
+    transpile: ["konva"],
   },
   // auto import components
   css: ["@/assets/styles/app.scss"], // vite plugins
