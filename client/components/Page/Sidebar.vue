@@ -8,6 +8,7 @@ const menuItems = [
   { title: "Dashboard", value: "dashboard", icon: "home", routeName: "index" },
   { title: "Explore", value: "explore", icon: "explore", routeName: "explore" },
   { title: "Blogs", value: "blog", icon: "blog", routeName: "blog" },
+  { title: "Travel", value: "products", icon: "cart", routeName: "product" },
   { title: "Saved", value: "saved", icon: "bookmark", routeName: "saved" },
   {
     title: "Top Authors",
@@ -21,7 +22,16 @@ const menuItems = [
 <template>
   <aside aria-label="Sidebar">
     <div
-      class="px-3 pb-4 overflow-y-auto rounded bg-gray-50 dark:bg-gray-800 h-screen overflow-hidden"
+      class="
+        px-3
+        pb-4
+        overflow-y-auto
+        rounded
+        bg-gray-50
+        dark:bg-gray-800
+        h-screen
+        overflow-hidden
+      "
     >
       <NuxtLink tag="a" class="py-4 block px-2" :to="{ name: 'index' }">
         <span class="sr-only">home</span>
@@ -35,7 +45,16 @@ const menuItems = [
           <li>
             <NuxtLink
               :to="{ name: item.routeName }"
-              class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white"
+              class="
+                flex
+                items-center
+                p-2
+                text-base
+                font-normal
+                text-gray-900
+                rounded-lg
+                dark:text-white
+              "
               :class="
                 route.name === item.routeName
                   ? 'bg-gray-200 dark:bg-dark-400 hover:bg-gray-300 hover:dark:bg-dark-500'

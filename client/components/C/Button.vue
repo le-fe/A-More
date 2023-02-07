@@ -27,6 +27,7 @@ const props = defineProps<{
   circle?: boolean;
   loading?: boolean;
   noAnimation?: boolean;
+  icon?: string;
 }>();
 
 const buttonClass = computed(() => {
@@ -34,7 +35,8 @@ const buttonClass = computed(() => {
   if (props.type && BUTTON.typeClass.includes(props.type)) cls.push(props.type);
   if (props.outlined) cls.push("btn-outline");
   if (props.active) cls.push("btn-active");
-  if (props.size && BUTTON.sizeClass.includes(props.size)) cls.push(props.size);
+  if (props.size && BUTTON.sizeClass.includes(props.size))
+    cls.push(`btn-${props.size}`);
   if (props.wide) cls.push("btn-wide");
   if (props.disabled) cls.push("btn-disabled");
   if (props.square) cls.push("btn-square");
@@ -45,5 +47,8 @@ const buttonClass = computed(() => {
 });
 </script>
 <template>
-  <button class="btn" :class="buttonClass"><slot /></button>
+  <button class="btn" :class="buttonClass">
+    <Icon v-if="icon" class="mr-1" :name="icon" />
+    <slot />
+  </button>
 </template>

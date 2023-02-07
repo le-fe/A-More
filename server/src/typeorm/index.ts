@@ -1,11 +1,9 @@
 import { User } from './User';
-//import { Messages } from './Messages';
-//import { Products } from './Products';
-//import { Orders } from './Orders';
+import { PostCategory } from './PostCategory';
+import { Post } from './Post';
+import { PostMedia } from './PostMedia';
+import { PostAttribute } from './PostAttribute';
 
-const entities = [
-  User,
-  // Messages, Products, Orders
-];
+const entities = [User, PostCategory, Post, PostMedia, PostAttribute];
 
 export default entities;

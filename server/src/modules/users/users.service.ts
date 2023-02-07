@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User as UserEntity } from '../typeorm/User';
-import { encodePassword } from '../utils/bcrypt';
+import { User } from '../../typeorm/User';
+import { encodePassword } from '../../utils/bcrypt';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/CreateUser.dto';
 import { UpdateAvatarDto } from './dto/UpdateAvatar.dto';
 import { UpdateUserDto } from './dto/UpdateUser.dto';
-import { SerializedUser, SerializedUserList } from './SerializedUser';
-import { plainToClassFromExist } from 'class-transformer';
+import { UserEntity } from './users.entity';
+import { paginateResponse } from '../../common/paginate';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async createUser(createUserDto: CreateUserDto) {
@@ -33,9 +33,23 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 
-  async getAllUsers() {
-    const users = await this.userRepository.find();
-    return users.map((user) => new SerializedUserList(user));
+  async getAllUsers(queries?: any) {
+    const take = queries?.take || 10;
+    const page = queries?.page || 1;
+    const skip = (page - 1) * take;
+    const res = await this.userRepository.findAndCount({
+      select: {
+        id: true,
+        fullName: true,
+        email: true,
+        imgUrl: true,
+        createAt: true,
+      },
+      order: { createAt: 'DESC' },
+      take,
+      skip,
+    });
+    return paginateResponse(res, page, take);
   }
 
   async findOne(condition: any) {

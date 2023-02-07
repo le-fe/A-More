@@ -24,7 +24,7 @@ import { CreateUserDto } from './dto/CreateUser.dto';
 import { UpdateAvatarDto } from './dto/UpdateAvatar.dto';
 import { UpdateUserDto } from './dto/UpdateUser.dto';
 import { UserRole } from './dto/UserRole';
-import { SerializedUser } from './SerializedUser';
+import { UserEntity } from './users.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -37,16 +37,8 @@ export class UsersController {
   //@hasRoles(UserRole.SUPER_ADMIN, UserRole.ADMIN)
   //@UseGuards(JwtAuthGuard, RolesGuard)
   //@UseInterceptors(ClassSerializerInterceptor)
-  async getTopAuthors() {
-    const users = await this.usersService.getAllUsers();
-    if (!users[0]) {
-      throw new HttpException('Users is null', HttpStatus.BAD_REQUEST);
-    }
-
-    return {
-      ok: true,
-      data: users,
-    };
+  async getTopAuthors(queries) {
+    return await this.usersService.getAllUsers(queries);
   }
 
   @Post('create')
@@ -64,7 +56,7 @@ export class UsersController {
     }
     const user = await this.usersService.createUser(createUserDto);
 
-    return new SerializedUser(user);
+    return new UserEntity(user);
   }
 
   @Get('user')
@@ -140,16 +132,5 @@ export class UsersController {
     await this.usersService.updateAvatar(updateAvatarDto, userId);
 
     return { message: 'User Updated', status: HttpStatus.OK };
-  }
-
-  @Get('total')
-  async fetchLengthUsers() {
-    const users = await this.usersService.getAllUsers();
-
-    return {
-      ok: true,
-      status: HttpStatus.OK,
-      data: users.length,
-    };
   }
 }

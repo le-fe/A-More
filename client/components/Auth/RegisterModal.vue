@@ -5,7 +5,7 @@ import { sample, cloneDeep } from "lodash";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "../../store/auth";
 
-const { $api, $config, $toast, $bus } = useNuxtApp();
+const { $api, $config, $toast, $toastError, $bus } = useNuxtApp();
 const router = useRouter();
 const { t } = useLang();
 const app = useAppConfig() as AppConfigInput;
@@ -50,16 +50,21 @@ function handleUserNotExisted() {
 }
 
 async function submitUsername(): void {
-  submitting.value = true;
-  const response = await $api.auth.continueWithUsername(loginUsername.value);
-  const responseActions = {
-    USER_EXISTED_PLS_LOGIN: handleUserExisted,
-    USER_NOT_EXISTED_PLS_REGISTER: handleUserNotExisted,
-  };
-  if (responseActions[response.messageCode]) {
-    responseActions[response.messageCode]();
+  try {
+    submitting.value = true;
+    const response = await $api.auth.continueWithUsername(loginUsername.value);
+    const responseActions = {
+      USER_EXISTED_PLS_LOGIN: handleUserExisted,
+      USER_NOT_EXISTED_PLS_REGISTER: handleUserNotExisted,
+    };
+    if (responseActions[response.messageCode]) {
+      responseActions[response.messageCode]();
+    }
+  } catch (error) {
+    $toastError();
+  } finally {
+    submitting.value = false;
   }
-  submitting.value = false;
 }
 
 async function handleRegister() {
@@ -77,7 +82,7 @@ async function handleRegister() {
       activeStep.value = formStep.FILL_PASSWORD;
     }
   } catch (error) {
-    $toast("Error", "Something goes wrong!", "error");
+    $toastError();
   }
 }
 
@@ -109,7 +114,17 @@ async function handleLogin() {
 </script>
 <template>
   <div
-    class="relative z-10 flex justify-center items-center bg-white rounded-lg shadow text-center"
+    class="
+      relative
+      z-10
+      flex
+      justify-center
+      items-center
+      bg-white
+      rounded-lg
+      shadow
+      text-center
+    "
   >
     <div
       class="w-full px-6 py-6 shrink-0 text-left max-h-[80vh] overflow-y-auto"

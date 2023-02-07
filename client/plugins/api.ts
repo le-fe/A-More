@@ -1,11 +1,13 @@
 import { $fetch, FetchOptions } from "ohmyfetch";
 import AuthModule from "../repository/modules/auth";
 import UserModule from "../repository/modules/user";
+import PostCategoriesModule from "../repository/modules/post-categories";
 
 /** ApiInstance interface provides us with good typing */
 interface IApiInstance {
   auth: AuthModule;
   user: UserModule;
+  postCategories: PostCategoriesModule;
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -20,6 +22,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const modules: IApiInstance = {
     auth: new AuthModule(apiFetcher),
     user: new UserModule(apiFetcher),
+    postCategories: new PostCategoriesModule(apiFetcher),
   };
 
   return {

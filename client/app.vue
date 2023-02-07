@@ -9,6 +9,8 @@ const locale = useState<string>("locale.setting");
 const app = useAppConfig() as AppConfigInput;
 const authStore = useAuthStore();
 
+const isLoaded = ref<boolean>(false);
+
 useHead({
   title: app.name,
   titleTemplate: "%s - Couple fairs",
@@ -23,7 +25,9 @@ useHead({
   link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
 });
 
-authStore.queryMe();
+authStore.queryMe().then(() => {
+  isLoaded.value = true;
+});
 </script>
 
 <template>
@@ -43,7 +47,7 @@ authStore.queryMe();
         dark:bg-gray-900
       "
     >
-      <NuxtLayout>
+      <NuxtLayout v-if="isLoaded">
         <NuxtLoadingIndicator :height="5" :duration="3000" :throttle="400" />
         <NuxtPage />
       </NuxtLayout>

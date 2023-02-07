@@ -2,6 +2,18 @@ core:
   login: Login
   register: Register
   profile: Profile
+  error: Error
+  create: Create
+  somethingWentWrong: Something went wrong!
+  others: Others
+  ideas: Ideas
+  start: Start
+  element: Element
+  text: Text
+  image: Image
+  comment: Comment
+input:
+  enterTitle: "Enter title"
 user:
   totalUsers: "Total users"
 components:
@@ -21,7 +33,7 @@ pages:
     description: this is a blank page
     just_blank_page_with_title: just blank page with title
   post:
-    nav: post
+    pleaseSelectAPostType: Please select a post topic to continue
     title: post
     description: this is a post page
   test:
