@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
 @Entity()
-export class Element {
+export class Texture {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -9,6 +10,9 @@ export class Element {
 
   @Column({ nullable: false })
   src: string;
+
+  @Column({ nullable: false })
+  capacity: number;
 
   @Column({ nullable: true })
   description: string;

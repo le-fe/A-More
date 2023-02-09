@@ -1,17 +1,18 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
+
 @Entity()
-export class Element {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export class TextureTag {
+  @PrimaryColumn('varchar', { length: 100 })
+  uid: string;
 
   @Column({ nullable: false })
   name: string;
 
-  @Column({ nullable: false })
-  src: string;
-
   @Column({ nullable: true })
   description: string;
+
+  @Column({ nullable: true, name: 'img_url' })
+  imgUrl: string;
 
   @Column({
     nullable: false,

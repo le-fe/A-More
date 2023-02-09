@@ -20,13 +20,13 @@ import { Request } from 'express';
 import { hasRoles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guard/JwtAuth.guard';
 import { RolesGuard } from '../auth/guard/roles.guard';
-import { PostCategoriesService } from './post-categories.service';
+import { TextureService } from './texture.service';
 
-@Controller('post-categories')
-export class PostCategoriesController {
+@Controller('texture')
+export class TextureController {
   constructor(
-    @Inject('POST_CATEGORIES_SERVICE')
-    private readonly service: PostCategoriesService,
+    @Inject('TEXTURE_SERVICE')
+    private readonly service: TextureService,
   ) {}
 
   @Get('/')

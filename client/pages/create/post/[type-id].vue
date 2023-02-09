@@ -28,7 +28,7 @@ fetchCategory();
 async function fetchCategory() {
   pending.value = true;
   const res = await $api.postCategories.retrieve(route.params.typeid);
-  console.log(res);
+  category.value = res;
   pending.value = false;
 }
 </script>
