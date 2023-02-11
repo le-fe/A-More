@@ -9,7 +9,7 @@ import { TextureService } from './texture.service';
   controllers: [TextureController],
   providers: [
     {
-      provide: 'POST_CATEGORIES_SERVICE',
+      provide: 'TEXTURE_SERVICE',
       useClass: TextureService,
     },
   ],

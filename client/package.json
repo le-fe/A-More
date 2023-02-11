@@ -37,6 +37,8 @@
 		"axios": "^1.2.5",
 		"click-outside-vue3": "^4.0.1",
 		"daisyui": "^2.49.0",
+		"dayjs": "^1.11.7",
+		"konva": "^8.4.2",
 		"mitt": "^3.0.0",
 		"nuxt": "latest",
 		"pinia": "^2.0.28",

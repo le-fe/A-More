@@ -1,25 +1,4 @@
-import {
-  BadRequestException,
-  Body,
-  ClassSerializerInterceptor,
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Inject,
-  Param,
-  Post,
-  Put,
-  Req,
-  UseGuards,
-  UseInterceptors,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
-import { Request } from 'express';
-import { hasRoles } from '../auth/decorators/roles.decorator';
-import { JwtAuthGuard } from '../auth/guard/JwtAuth.guard';
-import { RolesGuard } from '../auth/guard/roles.guard';
+import { Controller, Get, Inject, Param, Post, Put, Req } from '@nestjs/common';
 import { TextureService } from './texture.service';
 
 @Controller('texture')

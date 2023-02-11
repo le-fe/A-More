@@ -33,7 +33,7 @@ pages:
     description: this is a blank page
     just_blank_page_with_title: just blank page with title
   post:
-    pleaseSelectAPostType: Please select a post topic to continue
+    pleaseSelectATexture: Please select a texture to continue
     title: post
     description: this is a post page
   test:

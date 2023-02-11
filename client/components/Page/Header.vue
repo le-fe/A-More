@@ -86,8 +86,8 @@ function handleLogout() {
       <div class="flex items-center justify-end flex-1">
         <div class="flex items-stretch">
           <NuxtLink
-            v-if="route.name !== 'create-post'"
-            :to="{ name: 'create-post' }"
+            v-if="route.name !== 'create-board'"
+            :to="{ name: 'create-board' }"
           >
             <CButton icon="add">{{ t("core.create") }}</CButton>
           </NuxtLink>

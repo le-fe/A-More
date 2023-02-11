@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IPostCategory } from "@/interfaces";
+import { ITexture } from "@/interfaces";
 import { ref } from "vue";
 
 definePageMeta({
@@ -10,18 +10,24 @@ definePageMeta({
 const { $api } = useNuxtApp();
 const { t } = useLang();
 
-const categories = ref<IPostCategory[]>([]);
+const textures = ref<ITexture[]>([]);
 const pending = ref<boolean>(false);
 
-fetchCategories();
+fetchTextures();
 
-async function fetchCategories() {
+async function fetchTextures() {
   pending.value = true;
-  const res = await $api.postCategories.list();
+  const res = await $api.texture.list();
   if (res.ok) {
-    categories.value = res.data;
+    textures.value = res.data;
   }
   pending.value = false;
+}
+
+async function startWithTexture(texture: ITexture) {
+  const res = await $api.board.create({ texture: texture.id });
+  console.clear();
+  console.log(res);
 }
 </script>
 <template>
@@ -34,8 +40,11 @@ async function fetchCategories() {
         <div>300+ type of ideas you can share</div>
       </div>
       <div class="mt-8">
-        <div class="text-lg font-semibold">
-          {{ t("pages.post.pleaseSelectAPostType") }}
+        <div class="mb-4">
+          <div class="text-lg font-semibold mb-1">
+            {{ t("pages.post.pleaseSelectATexture") }}
+          </div>
+          <CInput class="w-[650px]" placeholder="Search a texture" />
         </div>
         <div class="mt-4">
           <div
@@ -46,41 +55,34 @@ async function fetchCategories() {
               md:gap-5
             "
           >
-            <NuxtLink
-              v-for="cat in categories"
-              :key="cat.uid"
+            <div
+              v-for="texture in textures"
+              :key="texture.id"
               class="bg-white shadow-md rounded-lg overflow-hidden"
             >
-              <icon v-if="!cat.imgUrl" name="add" />
+              <icon v-if="!texture.src" name="add" />
               <div class="w-full aspect-[5/3]">
-                <img class="w-full h-full object-cover" :src="cat.imgUrl" />
+                <img class="w-full h-full object-cover" :src="texture.src" />
               </div>
               <div class="pt-2 pb-4 px-4">
                 <div>
                   <div
                     class="font-semibold text-lg leading-tight mb-1 truncate"
                   >
-                    {{ cat.name }}
+                    {{ texture.name }}
                   </div>
-                  <div class="text-sm truncate">{{ cat.description }}</div>
+                  <div class="text-sm truncate">{{ texture.description }}</div>
                 </div>
                 <div class="mt-3 flex items-center justify-between">
                   <CButton size="sm" outlined>
                     {{ t("core.ideas") }}
                   </CButton>
-                  <NuxtLink
-                    :to="{
-                      name: 'create-post-typeid',
-                      params: { typeid: cat.uid },
-                    }"
-                  >
-                    <CButton size="sm">
-                      {{ t("core.start") }}
-                    </CButton>
-                  </NuxtLink>
+                  <CButton size="sm" @click="startWithTexture(texture)">
+                    {{ t("core.start") }}
+                  </CButton>
                 </div>
               </div>
-            </NuxtLink>
+            </div>
           </div>
         </div>
       </div>

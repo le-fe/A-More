@@ -7,7 +7,12 @@ const route = useRoute();
 const menuItems = [
   { title: "Dashboard", value: "dashboard", icon: "home", routeName: "index" },
   { title: "Explore", value: "explore", icon: "explore", routeName: "explore" },
-  { title: "Blogs", value: "blog", icon: "blog", routeName: "blog" },
+  {
+    title: "Recent Boards",
+    value: "recent-board",
+    icon: "board-color",
+    routeName: "boards-recent",
+  },
   { title: "Travel", value: "products", icon: "cart", routeName: "product" },
   { title: "Saved", value: "saved", icon: "bookmark", routeName: "saved" },
   {
