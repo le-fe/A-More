@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { IElement } from "../../../interfaces";
+
+const { $api } = useNuxtApp();
 const { t } = useLang();
 
 const tabs = [
@@ -9,6 +12,16 @@ const tabs = [
 ];
 
 const activeTab = ref<string>(tabs[0].value);
+const elements = ref<IElement[]>([]);
+
+loadElements();
+
+async function loadElements() {
+  const res = await $api.element.list();
+  if (res.ok) {
+    elements.value = res.data.data;
+  }
+}
 </script>
 <template>
   <div
@@ -103,7 +116,11 @@ const activeTab = ref<string>(tabs[0].value);
               dark:divide-dark-border-secondary
             "
           >
-            <div class="group relative">Item</div>
+            <template v-for="element in elements" :key="element.id">
+              <div class="group relative">
+                <BoardElementListItem :element="element" />
+              </div>
+            </template>
           </div>
         </div>
       </div>

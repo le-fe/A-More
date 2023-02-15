@@ -74,6 +74,16 @@ export class FileController {
   }
 
   @HttpCode(200)
+  @Get('/e/:elementFileName')
+  @Header('Content-Type', 'image/png')
+  getElementFile(
+    @Param('elementFileName') elementFileName: string,
+  ): StreamableFile {
+    const file = createReadStream(mediaRootFolder + '/e/' + elementFileName);
+    return new StreamableFile(file);
+  }
+
+  @HttpCode(200)
   @Get(':imageUrl')
   @Header('Content-Type', 'image/png')
   getFile(@Param('imageUrl') imageUrl: string): StreamableFile {

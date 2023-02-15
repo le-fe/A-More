@@ -11,6 +11,9 @@ export class TextureTag {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ nullable: true })
+  tags: string;
+
   @Column({ nullable: true, name: 'img_url' })
   imgUrl: string;
 

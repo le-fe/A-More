@@ -13,6 +13,9 @@ export class Element {
   @Column({ nullable: true })
   description: string;
 
+  @Column({ nullable: true })
+  tags: string;
+
   @Column({
     nullable: false,
     type: 'timestamp',

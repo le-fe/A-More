@@ -4,6 +4,7 @@ import { FileModule } from './file/file.module';
 import { PostCategoriesModule } from './post-categories/post-categories.module';
 import { TextureModule } from './texture/texture.module';
 import { BoardModule } from './board/board.module';
+import { ElementModule } from './element/element.module';
 
 const modules = [
   AuthModule,
@@ -12,5 +13,6 @@ const modules = [
   PostCategoriesModule,
   TextureModule,
   BoardModule,
+  ElementModule,
 ];
 export default modules;
