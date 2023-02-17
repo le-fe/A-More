@@ -12,6 +12,7 @@ core:
   text: Text
   image: Image
   comment: Comment
+  template: Template
 input:
   enterTitle: "Enter title"
 user:

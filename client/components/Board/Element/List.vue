@@ -24,30 +24,8 @@ async function loadElements() {
 }
 </script>
 <template>
-  <div
-    class="
-      bg-light-bg-base
-      dark:bg-dark-bg-base
-      border-light-border-primary
-      dark:border-dark-border-primary
-      divide-light-border-primary
-      dark:divide-dark-border-primary
-    "
-  >
-    <div
-      class="
-        sticky
-        top-0
-        z-header
-        px-sm
-        bg-light-bg-base
-        dark:bg-dark-bg-base
-        border-light-border-primary
-        dark:border-dark-border-primary
-        divide-light-border-primary
-        dark:divide-dark-border-primary
-      "
-    >
+  <div class="">
+    <div class="">
       <div class="tabs">
         <template v-for="tab in tabs" :key="tab.value">
           <a
@@ -60,47 +38,17 @@ async function loadElements() {
           </a>
         </template>
       </div>
-    </div>
-    <div class="py-sm md:px-sm">
-      <div
-        class="
-          z-header
-          sticky
-          md:py-sm md:-mt-sm md:px-0
-          top-[49px]
-          md:top-[65px]
-          bg-light-bg-base
-          dark:bg-dark-bg-base
-          border-light-border-primary
-          dark:border-dark-border-primary
-          divide-light-border-primary
-          dark:divide-dark-border-primary
-        "
-      >
-        <div
-          class="
-            pl-md
-            py-sm
-            md:rounded-md
-            bg-light-bg-card
-            dark:bg-dark-bg-card
-            border-light-border-primary
-            dark:border-dark-border-primary
-            divide-light-border-primary
-            dark:divide-dark-border-primary
-          "
-        >
-          <div class="flex items-center pt-sm">
-            <div class="relative w-full">
-              <input
-                type="text"
-                placeholder="Search our library of products &amp; brands"
-                class="input w-full"
-              />
-            </div>
-          </div>
+      <div class="flex items-center">
+        <div class="relative w-full">
+          <input
+            type="text"
+            placeholder="Search our library of products &amp; brands"
+            class="input w-full rounded-none"
+          />
         </div>
       </div>
+    </div>
+    <div class="py-sm md:px-sm">
       <div class="px-sm md:px-0">
         <div class="flex flex-col gap-xs mt-sm">
           <div
@@ -110,10 +58,6 @@ async function loadElements() {
               xl:grid-cols-3
               2xl:grid-cols-3
               gap-sm
-              border-light-border-secondary
-              dark:border-dark-border-secondary
-              divide-light-border-secondary
-              dark:divide-dark-border-secondary
             "
           >
             <template v-for="element in elements" :key="element.id">
