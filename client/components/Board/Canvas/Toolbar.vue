@@ -8,8 +8,8 @@ const TOOLBAR = [
     value: "delete",
     icon: "x",
     showIfElementFocused: true,
-    action: () => {
-      removeElement.value(canvas.elementFocused);
+    action: (element) => {
+      removeElement.value(element);
       setCanvas.value("elementFocused", null);
     },
   },
@@ -48,7 +48,7 @@ const TOOLBAR = [
               py-2
               rounded-lg
             "
-            @click="(evt) => toolbar.action(evt)"
+            @click="() => toolbar.action(canvas.elementFocused)"
           >
             <Icon :name="toolbar.icon" />
             <div class="ml-1 text-sm font-medium">{{ toolbar.name }}</div>

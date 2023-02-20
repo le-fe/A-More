@@ -7,6 +7,9 @@ export const useBoardStore = defineStore({
     return {
       board: {},
       isLoaded: false,
+      element: {
+        list: [],
+      },
       canvas: {
         elements: [],
         elementFocused: null,
@@ -31,9 +34,15 @@ export const useBoardStore = defineStore({
     },
     addElement(element: IElement) {
       this.canvas.elements.push(element);
+      this.element.list = this.element.list.filter(
+        (ele) => !(ele.id === element.id)
+      );
     },
     removeElement(element: IElement) {
-      this.canvas.elements.splice(this.canvas.elements.indexOf(element), 1);
+      this.element.list.push(element);
+      this.canvas.elements = this.canvas.elements.filter(
+        (ele) => !(ele.id === element.id)
+      );
     },
     setBoard(field: string, value: any) {
       this.board[field] = value;
@@ -41,6 +50,14 @@ export const useBoardStore = defineStore({
     },
     setCanvas(field: string, value: any) {
       this.canvas[field] = value;
+    },
+    // Elements
+    async loadElements() {
+      const { $api } = useNuxtApp();
+      const res = await $api.element.list();
+      if (res.ok) {
+        this.element.list = res.data.data;
+      }
     },
   },
   getters: {

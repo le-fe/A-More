@@ -1,20 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { IElement } from "../../../interfaces";
+import { ref, toRefs } from "vue";
+import { useBoardStore } from "~/store/board-detail";
 
-const { $api } = useNuxtApp();
+const { loadElements, element } = toRefs(useBoardStore());
 const { t } = useLang();
-
-const elements = ref<IElement[]>([]);
-
-loadElements();
-
-async function loadElements() {
-  const res = await $api.element.list();
-  if (res.ok) {
-    elements.value = res.data.data;
-  }
-}
+loadElements.value();
 </script>
 <template>
   <div class="h-full flex flex-col overflow-hidden">
@@ -29,7 +19,7 @@ async function loadElements() {
     </div>
     <div class="py-4 flex-grow overflow-y-auto pr-2">
       <div class="grid grid-cols-[repeat(auto-fill,minmax(125px,1fr))] gap-4">
-        <template v-for="element in elements" :key="element.id">
+        <template v-for="element in element.list" :key="element.id">
           <BoardElementListItem :element="element" />
         </template>
       </div>
