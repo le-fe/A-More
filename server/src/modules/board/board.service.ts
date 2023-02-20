@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Board } from '../../typeorm/Board';
-import { encodePassword } from '../../utils/bcrypt';
+import { NotFoundError } from '../../errors/not-found.error';
 import { Repository } from 'typeorm';
 import { paginateResponse } from '../../common/paginate';
-import { CreateBoardDto } from './dto/CreateBoard.dto';
+import { CreateBoardDto, UpdateBoardDto } from './dto/CreateBoard.dto';
 import { User } from '../../typeorm/User';
 import { Texture } from '../../typeorm/Texture';
 import { TextureService } from '../texture/texture.service';
@@ -28,12 +28,18 @@ export class BoardService {
     });
     return paginateResponse(res, page, take);
   }
-  async findOne(id: string) {
-    return await this.repository.findOne({
+
+  async findOne(id: string): Promise<Board> {
+    const board = await this.repository.findOne({
       where: { id },
       relations: ['texture'],
     });
+    if (!board) {
+      throw new NotFoundError('board');
+    }
+    return board;
   }
+
   async create(user: User, createData: CreateBoardDto) {
     const board = new Board();
     board.user = user;
@@ -43,6 +49,13 @@ export class BoardService {
       where: { id: createData.texture },
     });
     board.texture = texture;
+    return this.repository.save(board);
+  }
+
+  async update(uid: string, payload: UpdateBoardDto) {
+    const board = await this.findOne(uid);
+    board.name = payload.name;
+    board.template = payload.template;
     return this.repository.save(board);
   }
 }

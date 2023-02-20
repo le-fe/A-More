@@ -15,3 +15,11 @@ export class CreateBoardDto {
   @IsNotEmpty()
   name: string;
 }
+
+export class UpdateBoardDto {
+  @IsNotEmpty()
+  name: string;
+
+  @IsNotEmpty()
+  template: string;
+}

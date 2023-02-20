@@ -21,6 +21,9 @@ export class Board {
   @Column({ nullable: false })
   content: string;
 
+  @Column({ nullable: false, default: 'GRID' })
+  template: string;
+
   @ManyToOne(() => Texture)
   texture: Texture;
 

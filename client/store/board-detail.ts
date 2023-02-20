@@ -9,7 +9,6 @@ export const useBoardStore = defineStore({
       isLoaded: false,
       canvas: {
         elements: [],
-        template: "grid",
         elementFocused: null,
       },
     };
@@ -23,11 +22,22 @@ export const useBoardStore = defineStore({
         this.isLoaded = true;
       }
     },
+    async saveBoardData() {
+      if (!this.board) return;
+      const { $api } = useNuxtApp();
+      const res = await $api.board.update(this.board.id, this.board);
+      console.clear();
+      console.log(res);
+    },
     addElement(element: IElement) {
       this.canvas.elements.push(element);
     },
     removeElement(element: IElement) {
       this.canvas.elements.splice(this.canvas.elements.indexOf(element), 1);
+    },
+    setBoard(field: string, value: any) {
+      this.board[field] = value;
+      this.saveBoardData();
     },
     setCanvas(field: string, value: any) {
       this.canvas[field] = value;

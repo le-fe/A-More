@@ -14,6 +14,10 @@ class BoardModule extends HttpFactory {
   async create(body: any) {
     return await this.call("POST", `${this.RESOURCE}/`, body);
   }
+
+  async update(id: string, body: any) {
+    return await this.call("PATCH", `${this.RESOURCE}/${id}/`, body);
+  }
 }
 
 export default BoardModule;

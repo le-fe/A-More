@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { toRefs, computed } from "vue";
 import { useBoardStore } from "@/store/board-detail";
-const { setCanvas, canvas } = toRefs(useBoardStore());
+const { setBoard, board } = toRefs(useBoardStore());
 
-const selectedTemplate = computed(() => canvas.value.template);
+const selectedTemplate = computed(() => board.value.template);
 const TEMPLATE_LIST = [
-  { name: "Grid", value: "grid", ic: "grid" },
-  { name: "List", value: "list", ic: "list" },
+  { name: "Grid", value: "GRID", ic: "grid" },
+  { name: "List", value: "LIST", ic: "list" },
 ];
 </script>
 <template>
@@ -27,7 +27,7 @@ const TEMPLATE_LIST = [
         :class="
           selectedTemplate === template.value ? 'shadow-sm' : 'opacity-50'
         "
-        @click="setCanvas('template', template.value)"
+        @click="setBoard('template', template.value)"
       >
         <Icon :name="template.ic" class="w-[32px] h-[32px]" />
         <div class="text-lg">{{ template.name }}</div>

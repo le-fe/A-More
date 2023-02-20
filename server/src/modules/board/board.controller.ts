@@ -4,7 +4,7 @@ import {
   Inject,
   Param,
   Post,
-  Put,
+  Patch,
   Req,
   UseGuards,
   Body,
@@ -12,10 +12,10 @@ import {
 } from '@nestjs/common';
 import { ReqUser } from '../auth/decorators/user.decorator';
 import { BoardService } from './board.service';
-import { CreateBoardDto } from './dto/CreateBoard.dto';
 import { JwtAuthGuard } from '../auth/guard/JwtAuth.guard';
 import { User } from '../../typeorm/User';
 import { TransformInterceptor } from '../../interceptors/transform.interceptor';
+import { CreateBoardDto, UpdateBoardDto } from './dto/CreateBoard.dto';
 
 @UseInterceptors(TransformInterceptor)
 @Controller('board')
@@ -39,5 +39,10 @@ export class BoardController {
   @UseGuards(JwtAuthGuard)
   async create(@ReqUser() user: User, @Body() body: CreateBoardDto) {
     return await this.service.create(user, body);
+  }
+
+  @Patch(':uid')
+  async update(@Param('uid') uid: string, @Body() body: UpdateBoardDto) {
+    return await this.service.update(uid, body);
   }
 }

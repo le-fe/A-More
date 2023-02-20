@@ -12,7 +12,9 @@ definePageMeta({
 const { t } = useLang();
 const route = useRoute();
 const { $api } = useNuxtApp();
-const { loadBoardData, board, isLoaded, canvas } = toRefs(useBoardStore());
+const { loadBoardData, saveBoardData, board, isLoaded } = toRefs(
+  useBoardStore()
+);
 
 const TABS = [
   { name: t("core.element"), ic: "element", value: "element" },
@@ -24,10 +26,10 @@ const activeTab = ref<string>(TABS[0].value);
 const isUpdatingTitle = ref(false);
 
 const TEMPLATE_COMPONENT = {
-  grid: defineAsyncComponent(
+  GRID: defineAsyncComponent(
     () => import("~/components/Board/Template/Grid.vue")
   ),
-  list: defineAsyncComponent(
+  LIST: defineAsyncComponent(
     () => import("~/components/Board/Template/List.vue")
   ),
 };
@@ -60,6 +62,7 @@ loadBoardData.value(route.params.id);
                     "
                     spellcheck="false"
                     v-model="board.name"
+                    @blur="saveBoardData"
                   />
                 </template>
                 <template v-else>
@@ -74,7 +77,9 @@ loadBoardData.value(route.params.id);
             </template>
           </div>
           <div>
-            <CButton icon="save">{{ `Save your Board` }}</CButton>
+            <CButton icon="save" @click="saveBoardData">
+              {{ `Save your Board` }}
+            </CButton>
           </div>
         </div>
       </div>
@@ -112,8 +117,8 @@ loadBoardData.value(route.params.id);
           <div class="h-full w-full flex items-center justify-center">
             <ClientOnly>
               <div class="h-full w-full select-none">
-                <template v-if="TEMPLATE_COMPONENT[canvas.template]">
-                  <component :is="TEMPLATE_COMPONENT[canvas.template]" />
+                <template v-if="TEMPLATE_COMPONENT[board.template]">
+                  <component :is="TEMPLATE_COMPONENT[board.template]" />
                 </template>
               </div>
             </ClientOnly>
