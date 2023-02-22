@@ -5,6 +5,8 @@ import {
   ManyToOne,
   ManyToMany,
   JoinTable,
+  JoinColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { User } from './User';
 import { Texture } from './Texture';
@@ -29,10 +31,6 @@ export class Board {
 
   @ManyToOne(() => User)
   user: User;
-
-  @ManyToMany(() => Element)
-  @JoinTable()
-  elements: Element[];
 
   @Column({
     nullable: false,

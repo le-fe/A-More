@@ -30,10 +30,11 @@ export class BoardService {
   }
 
   async findOne(id: string): Promise<Board> {
-    const board = await this.repository.findOne({
-      where: { id },
-      relations: ['texture'],
-    });
+    const board = await this.repository
+      .createQueryBuilder('board')
+      .leftJoinAndSelect('board.texture', 'texture')
+      .where('board.id = :id', { id })
+      .getOne();
     if (!board) {
       throw new NotFoundError('board');
     }

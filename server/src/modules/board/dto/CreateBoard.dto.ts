@@ -22,4 +22,6 @@ export class UpdateBoardDto {
 
   @IsNotEmpty()
   template: string;
+
+  elements: any[];
 }

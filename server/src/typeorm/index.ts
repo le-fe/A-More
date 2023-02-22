@@ -9,6 +9,7 @@ import { ElementTag } from './ElementTag';
 import { Texture } from './Texture';
 import { Element } from './Element';
 import { Board } from './Board';
+import { BoardElementItem } from './BoardElementItem';
 
 const entities = [
   User,
@@ -21,6 +22,7 @@ const entities = [
   Texture,
   Element,
   Board,
+  BoardElementItem,
 ];
 
 export default entities;
