@@ -5,6 +5,7 @@ import BoardModule from "../repository/modules/board";
 import PostCategoriesModule from "../repository/modules/post-categories";
 import TextureModule from "../repository/modules/texture";
 import ElementModule from "../repository/modules/element";
+import BoardElementModule from "../repository/modules/board-elements";
 
 /** ApiInstance interface provides us with good typing */
 interface IApiInstance {
@@ -14,6 +15,7 @@ interface IApiInstance {
   texture: TextureModule;
   board: BoardModule;
   element: ElementModule;
+  boardElements: BoardElementModule;
 }
 
 export default defineNuxtPlugin((nuxtApp) => {
@@ -32,6 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     texture: new TextureModule(apiFetcher),
     board: new BoardModule(apiFetcher),
     element: new ElementModule(apiFetcher),
+    boardElements: new BoardElementModule(apiFetcher),
   };
 
   return {

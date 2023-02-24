@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
-import Sortable from "../../Sortable.vue";
 import { useBoardStore } from "@/store/board-detail";
 
-const { setCanvas, canvas } = toRefs(useBoardStore());
+const { setCanvas, canvas, boardElements } = toRefs(useBoardStore());
 </script>
 <template>
   <div class="h-full overflow-y-auto">
-    <Sortable
-      :list="canvas.elements"
+    <draggable
+      :list="boardElements"
       item-key="id"
       tag="div"
       :options="{
@@ -34,6 +33,6 @@ const { setCanvas, canvas } = toRefs(useBoardStore());
           </div>
         </div>
       </template>
-    </Sortable>
+    </draggable>
   </div>
 </template>

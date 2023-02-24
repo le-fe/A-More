@@ -34,7 +34,7 @@ export class BoardController {
 
   @Get(':uid')
   async retrieve(@Param('uid') uid: string, @Req() req: Request) {
-    const detail = await this.service.findOne(uid);
+    const detail = await this.service.retrieve(uid);
     return detail;
   }
 

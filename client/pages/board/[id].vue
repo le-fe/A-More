@@ -47,19 +47,7 @@ loadBoardData.value(route.params.id);
               <div class="ml-4">
                 <template v-if="isUpdatingTitle">
                   <input
-                    class="
-                      text-2xl
-                      font-semibold
-                      border-transparent
-                      focus:border-transparent
-                      outline-none
-                      focus:outline-none
-                      bg-transparent
-                      focus:bg-slate-300
-                      px-4
-                      py-2
-                      rounded-lg
-                    "
+                    class="text-2xl font-semibold border-transparent focus:border-transparent outline-none focus:outline-none bg-transparent focus:bg-slate-300 px-4 py-2 rounded-lg"
                     spellcheck="false"
                     v-model="board.name"
                     @blur="saveBoardData"
@@ -77,8 +65,8 @@ loadBoardData.value(route.params.id);
             </template>
           </div>
           <div>
-            <CButton icon="save" @click="saveBoardData">
-              {{ `Save your Board` }}
+            <CButton icon="publish" @click="saveBoardData">
+              {{ `Publish your Board` }}
             </CButton>
           </div>
         </div>
@@ -91,13 +79,7 @@ loadBoardData.value(route.params.id);
             <div class="tabs">
               <template v-for="tab in TABS" :key="tab.value">
                 <a
-                  class="
-                    tab tab-lg tab-lifted
-                    flex
-                    items-center
-                    justify-center
-                    px-4
-                  "
+                  class="tab tab-lg tab-lifted flex items-center justify-center px-4"
                   @click="activeTab = tab.value"
                   :class="{ 'tab-active': activeTab === tab.value }"
                 >

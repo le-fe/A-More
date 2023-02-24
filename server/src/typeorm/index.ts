@@ -1,8 +1,4 @@
 import { User } from './User';
-import { PostCategory } from './PostCategory';
-import { Post } from './Post';
-import { PostMedia } from './PostMedia';
-import { PostAttribute } from './PostAttribute';
 //
 import { TextureTag } from './TextureTag';
 import { ElementTag } from './ElementTag';
@@ -13,10 +9,6 @@ import { BoardElementItem } from './BoardElementItem';
 
 const entities = [
   User,
-  PostCategory,
-  Post,
-  PostMedia,
-  PostAttribute,
   TextureTag,
   ElementTag,
   Texture,

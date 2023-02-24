@@ -5,13 +5,17 @@ export const useBoardStore = defineStore({
   id: "board",
   state: () => {
     return {
-      board: {},
+      board: {
+        id: "",
+        name: "",
+        template: "",
+      },
+      boardElements: [],
       isLoaded: false,
       element: {
         list: [],
       },
       canvas: {
-        elements: [],
         elementFocused: null,
       },
     };
@@ -21,7 +25,9 @@ export const useBoardStore = defineStore({
       const { $api } = useNuxtApp();
       const res = await $api.board.retrieve(id);
       if (res.ok) {
-        this.board = res.data;
+        Object.assign(this.board, res.data);
+        const elementRes = await $api.boardElements.list(id);
+        this.boardElements = elementRes || [];
         this.isLoaded = true;
       }
     },
@@ -32,17 +38,26 @@ export const useBoardStore = defineStore({
       console.clear();
       console.log(res);
     },
-    addElement(element: IElement) {
-      this.canvas.elements.push(element);
+    async addElement(element: IElement) {
+      const { $api } = useNuxtApp();
       this.element.list = this.element.list.filter(
         (ele) => !(ele.id === element.id)
       );
+      const elementRes = await $api.boardElements.create({
+        board: this.board.id,
+        element: element.id,
+      });
+      this.boardElements.push(elementRes);
+      console.clear();
+      console.log(elementRes);
     },
-    removeElement(element: IElement) {
-      this.element.list.push(element);
-      this.canvas.elements = this.canvas.elements.filter(
+    async removeElement(element: any) {
+      this.element.list.push(element.element);
+      this.boardElements = this.boardElements.filter(
         (ele) => !(ele.id === element.id)
       );
+      const { $api } = useNuxtApp();
+      await $api.boardElements.delete(element.id);
     },
     setBoard(field: string, value: any) {
       this.board[field] = value;

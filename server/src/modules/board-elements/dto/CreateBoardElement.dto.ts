@@ -23,7 +23,4 @@ export class CreateBoardElementDto {
 
   @IsString()
   content: string;
-
-  @IsNumber()
-  order: number;
 }

@@ -29,7 +29,7 @@ export class BoardService {
     return paginateResponse(res, page, take);
   }
 
-  async findOne(id: string): Promise<Board> {
+  async retrieve(id: string): Promise<Board> {
     const board = await this.repository
       .createQueryBuilder('board')
       .leftJoinAndSelect('board.texture', 'texture')
@@ -39,6 +39,10 @@ export class BoardService {
       throw new NotFoundError('board');
     }
     return board;
+  }
+
+  async findOne(condition: any) {
+    return await this.repository.findOne(condition);
   }
 
   async create(user: User, createData: CreateBoardDto) {
@@ -54,7 +58,7 @@ export class BoardService {
   }
 
   async update(uid: string, payload: UpdateBoardDto) {
-    const board = await this.findOne(uid);
+    const board = await this.retrieve(uid);
     board.name = payload.name;
     board.template = payload.template;
     return this.repository.save(board);

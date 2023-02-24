@@ -13,9 +13,6 @@ export class BoardElementItem {
   @ManyToOne(() => Element)
   element: Element;
 
-  @Column({ nullable: false })
-  order: number;
-
   @Column()
   title: string;
 

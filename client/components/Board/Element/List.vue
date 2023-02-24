@@ -5,6 +5,16 @@ import { useBoardStore } from "~/store/board-detail";
 const { loadElements, element } = toRefs(useBoardStore());
 const { t } = useLang();
 loadElements.value();
+
+function handleMoveEnd(evt) {
+  console.log("end", evt);
+}
+function handleMoveStart({ oldIndex }) {
+  console.log("start", oldIndex);
+}
+function handleMove() {
+  return true;
+}
 </script>
 <template>
   <div class="h-full flex flex-col overflow-hidden">
@@ -18,11 +28,21 @@ loadElements.value();
       </div>
     </div>
     <div class="py-4 flex-grow overflow-y-auto pr-2">
-      <div class="grid grid-cols-[repeat(auto-fill,minmax(125px,1fr))] gap-4">
-        <template v-for="element in element.list" :key="element.id">
+      <draggable
+        class="grid grid-cols-[repeat(auto-fill,minmax(125px,1fr))] gap-4"
+        :group="{ name: 'dragzone', pull: 'clone', put: false }"
+        ghost-class="ghost"
+        item-key="id"
+        :list="element.list"
+        :sort="false"
+        :move="handleMove"
+        @end="handleMoveEnd"
+        @start="handleMoveStart"
+      >
+        <template #item="{ element }">
           <BoardElementListItem :element="element" />
         </template>
-      </div>
+      </draggable>
     </div>
   </div>
 </template>

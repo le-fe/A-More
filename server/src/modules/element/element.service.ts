@@ -30,7 +30,11 @@ export class ElementService {
     return paginateResponse(res, page, take);
   }
 
-  async findOne(id: string) {
+  async retrieve(id: string) {
     return await this.repository.findOne({ where: { id } });
+  }
+
+  async findOne(condition: any) {
+    return await this.repository.findOne(condition);
   }
 }

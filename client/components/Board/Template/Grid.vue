@@ -1,23 +1,38 @@
 <script setup lang="ts">
 import { toRefs } from "vue";
-import Sortable from "../../Sortable.vue";
+import { set } from "lodash";
 import { useBoardStore } from "@/store/board-detail";
 
-const { setCanvas, canvas } = toRefs(useBoardStore());
+const { setCanvas, canvas, element, boardElements } = toRefs(useBoardStore());
+
+function handleMoveEnd({ newIndex, oldIndex }) {
+  console.log("index", newIndex, oldIndex);
+}
+
+function handleWidgetAdd(evt) {
+  console.log("add", evt);
+  console.log("end", evt);
+  const newIndex = evt.newIndex;
+  const to = evt.to;
+  boardElements.value[0] = element.value.list[0];
+  // set(boardElements, newIndex, element.value.list[0]);
+}
 </script>
 <template>
-  <Sortable
+  <draggable
     class="grid grid-cols-4 gap-4"
-    :list="canvas.elements"
+    :list="boardElements"
     item-key="id"
     tag="div"
-    :options="{
-      group: 'shared',
-      animation: 150,
-      ghostClass: 'blue-background-class',
+    :group="{
+      name: 'dragzone',
+      animation: 200,
     }"
+    ghost-class="bg-slate-100"
+    @end="handleMoveEnd"
+    @add="handleWidgetAdd"
   >
-    <template #item="{ element, index }">
+    <template #item="{ element }">
       <div
         class="aspect-square overflow-hidden p-4 cursor-pointer relative"
         :key="element.id"
@@ -27,10 +42,12 @@ const { setCanvas, canvas } = toRefs(useBoardStore());
         @click="setCanvas('elementFocused', element)"
       >
         <div class="px-5">
-          <img :src="element.full_src" />
+          <img :src="element.element.full_src" />
         </div>
-        <div class="text-sm text-center truncate">{{ element.name }}</div>
+        <div class="text-sm text-center truncate">
+          {{ element.element.name }}
+        </div>
       </div>
     </template>
-  </Sortable>
+  </draggable>
 </template>
