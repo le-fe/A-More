@@ -45,14 +45,9 @@ function hideModalAuth(isBack?: boolean) {
 
 <template>
   <div class="min-h-screen">
-    <PageSidebar
-      class="fixed left-0 top-0 bottom-0 w-sidebar overflow-y-auto"
-    />
-    <div class="md:pl-sidebar">
-      <PageHeader class="sticky top-0" />
-      <slot />
-      <slot name="footer" />
-    </div>
+    <PageHeader class="sticky top-0 h-[70px]" />
+    <slot />
+    <slot name="footer" />
     <slot name="app-after" />
     <div id="app-after"></div>
     <Modal v-model="showModal" @close="hideModalAuth(true)">

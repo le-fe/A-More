@@ -13,6 +13,8 @@ core:
   image: Image
   comment: Comment
   template: Template
+  background: Background
+  myBoard: My Board
 input:
   enterTitle: "Enter title"
 user:

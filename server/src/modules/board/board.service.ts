@@ -61,6 +61,10 @@ export class BoardService {
     const board = await this.retrieve(uid);
     board.name = payload.name;
     board.template = payload.template;
+    if (payload.texture) {
+      board.texture = payload.texture;
+    }
+    board.isPublished = payload?.isPublished || board.isPublished;
     return this.repository.save(board);
   }
 }

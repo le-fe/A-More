@@ -10,11 +10,11 @@
 		"generate:locales": "node tools/translator.js ./locales en.yml"
 	},
 	"devDependencies": {
+		"@interactjs/types": "^1.10.17",
 		"@intlify/nuxt3": "^0.2.4",
 		"@nuxt/types": "latest",
 		"@nuxt/typescript-build": "latest",
 		"@nuxtjs/tailwindcss": "^6.3.0",
-		"@types/fabric": "^4.5.15",
 		"lodash": "^4.17.21",
 		"sass": "^1.57.1",
 		"sass-loader": "^13.2.0",
@@ -38,11 +38,12 @@
 		"click-outside-vue3": "^4.0.1",
 		"daisyui": "^2.49.0",
 		"dayjs": "^1.11.7",
+		"html-to-image": "^1.11.11",
+		"interactjs": "^1.10.17",
 		"mitt": "^3.0.0",
 		"nuxt": "latest",
 		"pinia": "^2.0.28",
 		"postcss": "^8.4.21",
-		"sortablejs": "^1.15.0",
-		"vuedraggable": "^4.1.0"
+		"vue-color-kit": "^1.0.5"
 	}
 }

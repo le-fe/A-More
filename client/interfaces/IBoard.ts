@@ -6,6 +6,7 @@ type IBoard = {
   src?: string;
   texture?: ITexture;
   createAt?: string;
+  isPublished?: boolean;
 };
 
 export { IBoard };

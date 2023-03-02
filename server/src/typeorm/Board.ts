@@ -40,6 +40,9 @@ export class Board {
   })
   createAt: Date;
 
+  @Column('boolean', {default: false})
+  isPublished: boolean = false;
+
   @Column({
     nullable: false,
     type: 'timestamp',

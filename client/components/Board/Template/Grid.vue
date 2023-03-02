@@ -41,11 +41,8 @@ function handleWidgetAdd(evt) {
         }"
         @click="setCanvas('elementFocused', element)"
       >
-        <div class="px-5">
+        <div class="flex items-center justify-center">
           <img :src="element.element.full_src" />
-        </div>
-        <div class="text-sm text-center truncate">
-          {{ element.element.name }}
         </div>
       </div>
     </template>

@@ -23,6 +23,9 @@ module.exports = {
   },
   theme: {
     extend: {
+      height: {
+        "full-page": "calc(100vh - 70px)",
+      },
       width: {
         sidebar: "232px",
       },

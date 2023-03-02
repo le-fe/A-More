@@ -13,15 +13,7 @@ function handleAdd() {
 </script>
 <template>
   <div
-    class="
-      group
-      relative
-      cursor-pointer
-      flex flex-col
-      bg-slate-50
-      p-2
-      rounded-lg
-    "
+    class="group relative cursor-pointer flex flex-col bg-slate-50 p-2 rounded-lg"
   >
     <div class="flex-grow">
       <img class="select-none" :id="element.id" :src="element.full_src" />

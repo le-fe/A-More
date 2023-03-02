@@ -3,12 +3,13 @@ import { computed } from "vue";
 
 const props = defineProps<{
   ghost?: boolean;
+  size?: string;
 }>();
 
 const className = computed(() => {
-  let cls = [];
+  let cls = ["input-bordered"];
   if (props.ghost) cls.push("input-ghost");
-  else cls.push("input-bordered");
+  if (props.size) cls.push(`input-${props.size}`);
   return cls;
 });
 </script>

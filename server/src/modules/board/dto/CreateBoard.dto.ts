@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEmail,
   IsEnum,
   IsNotEmpty,
@@ -24,4 +25,9 @@ export class UpdateBoardDto {
   template: string;
 
   elements: any[];
+
+  texture?: any;
+
+  @IsBoolean()
+  isPublished?: boolean;
 }

@@ -9,8 +9,7 @@ const router = useRouter();
 <template>
   <div class="min-h-screen w-screen overflow-hidden">
     <PageHeader
-      class="sticky top-0 left-0 right-0 w-screen overflow-hidden"
-      :show-logo="true"
+      class="sticky top-0 left-0 right-0 h-[70px] w-screen overflow-hidden"
     />
     <div
       class="bg-gray-200 w-screen overflow-hidden"

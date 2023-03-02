@@ -3,10 +3,6 @@ import { AppConfigInput } from "@nuxt/schema";
 import { useRoute } from "vue-router";
 import { useAuthStore } from "../../store/auth";
 
-defineProps<{
-  showLogo?: boolean;
-}>();
-
 export interface IMenuItem {
   type: "link" | "button";
   text: string;
@@ -43,48 +39,21 @@ function handleLogout() {
 
 <template>
   <header
-    class="
-      app-header
-      sticky
-      top-0
-      bg-white
-      z-30
-      flex
-      h-16
-      w-full
-      items-center
-      justify-between
-      border-b border-light-300
-      bg-light
-      py-1
-      ltr:left-0
-      rtl:right-0
-      dark:border-dark-300 dark:bg-dark-250
-      sm:h-[70px]
-    "
+    class="app-header sticky top-0 bg-white z-30 flex h-16 w-full items-center justify-between border-b border-light-300 bg-light py-1 ltr:left-0 rtl:right-0 dark:border-dark-300 dark:bg-dark-250"
   >
     <div class="navbar px-6">
-      <NuxtLink
-        v-if="showLogo"
-        tag="a"
-        class="py-4 block px-2"
-        :to="{ name: 'index' }"
-      >
+      <NuxtLink tag="a" class="py-4 block px-2" :to="{ name: 'index' }">
         <span class="sr-only">home</span>
         <span class="flex items-center">
           <Icon name="logo" size="xl" />
           <span class="text-lg font-semibold">{{ app.name }}</span>
         </span>
       </NuxtLink>
-      <div class="flex-1 px-2 lg:flex-none" v-if="route.meta.title">
-        <div class="flex items-center gap-4">
-          <div v-if="route.meta.title" class="font-semibold text-2xl">
-            {{ route.meta.title }}
-          </div>
-        </div>
-      </div>
       <div class="flex items-center justify-end flex-1">
         <div class="flex items-stretch">
+          <NuxtLink class="mr-4" :to="{ name: 'boards-recent' }">
+            <CButton icon="board">{{ t("core.myBoard") }}</CButton>
+          </NuxtLink>
           <NuxtLink
             v-if="route.name !== 'create-board'"
             :to="{ name: 'create-board' }"
@@ -108,15 +77,7 @@ function handleLogout() {
               </label>
               <ul
                 tabindex="0"
-                class="
-                  dropdown-content
-                  menu
-                  p-2
-                  shadow
-                  bg-base-100
-                  rounded-box
-                  w-52
-                "
+                class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
                   <a>{{ t("core.profile") }}</a>

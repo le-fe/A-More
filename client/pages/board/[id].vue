@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, defineAsyncComponent, toRefs } from "vue";
 import { useRoute } from "vue-router";
+import html2canvas from "html2canvas";
+import * as htmlToImage from "html-to-image";
 import { useBoardStore } from "../../store/board-detail";
 import { IElement } from "../../../interfaces";
 
@@ -19,7 +21,7 @@ const { loadBoardData, saveBoardData, board, isLoaded } = toRefs(
 const TABS = [
   { name: t("core.element"), ic: "element", value: "element" },
   { name: t("core.template"), ic: "image", value: "template" },
-  // { name: t("core.text"), ic: "text", value: "text" },
+  { name: t("core.background"), ic: "background", value: "background" },
 ];
 const activeTab = ref<string>(TABS[0].value);
 
@@ -35,6 +37,21 @@ const TEMPLATE_COMPONENT = {
 };
 
 loadBoardData.value(route.params.id);
+
+function publishBoard() {
+  htmlToImage
+    .toPng(document.querySelector("#capture"))
+    .then(function (dataUrl) {
+      var image = new Image();
+      image.src = dataUrl;
+
+      var w = window.open("");
+      w.document.write(image.outerHTML);
+    })
+    .catch(function (error) {
+      console.error("oops, something went wrong!", error);
+    });
+}
 </script>
 <template>
   <div class="h-screen w-screen overflow-hidden">
@@ -65,7 +82,11 @@ loadBoardData.value(route.params.id);
             </template>
           </div>
           <div>
-            <CButton icon="publish" @click="saveBoardData">
+            <CButton
+              v-if="board.isPublished === false"
+              icon="publish"
+              @click="publishBoard"
+            >
               {{ `Publish your Board` }}
             </CButton>
           </div>
@@ -73,7 +94,7 @@ loadBoardData.value(route.params.id);
       </div>
     </div>
     <div class="flex h-[80vh] container mx-auto">
-      <div class="w-1/2 py-8">
+      <div class="w-1/3 py-8">
         <div class="h-full overflow-hidden flex flex-col">
           <div class="">
             <div class="tabs">
@@ -91,21 +112,14 @@ loadBoardData.value(route.params.id);
           </div>
           <BoardElementList v-if="activeTab === 'element'" />
           <BoardTemplates v-if="activeTab === 'template'" />
+          <BoardTextureList v-if="activeTab === 'background'" class="mt-4" />
         </div>
       </div>
-      <div class="relative w-1/2 pl-10">
+      <div class="relative w-1/3 px-4">
+        <BoardPlayground id="capture" />
+      </div>
+      <div class="w-1/3">
         <BoardCanvasToolbar />
-        <div class="w-full aspect-square bg-white rounded-2xl overflow-hidden">
-          <div class="h-full w-full flex items-center justify-center">
-            <ClientOnly>
-              <div class="h-full w-full select-none">
-                <template v-if="TEMPLATE_COMPONENT[board.template]">
-                  <component :is="TEMPLATE_COMPONENT[board.template]" />
-                </template>
-              </div>
-            </ClientOnly>
-          </div>
-        </div>
       </div>
     </div>
   </div>
