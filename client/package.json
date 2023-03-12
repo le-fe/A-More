@@ -44,6 +44,7 @@
 		"nuxt": "latest",
 		"pinia": "^2.0.28",
 		"postcss": "^8.4.21",
+		"shortid": "^2.2.16",
 		"vue-color-kit": "^1.0.5"
 	}
 }

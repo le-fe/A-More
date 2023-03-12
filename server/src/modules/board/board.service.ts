@@ -61,6 +61,7 @@ export class BoardService {
     const board = await this.retrieve(uid);
     board.name = payload.name;
     board.template = payload.template;
+    board.widgets = payload.widgets;
     if (payload.texture) {
       board.texture = payload.texture;
     }

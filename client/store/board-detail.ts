@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import shortid from "shortid";
 import { IBoard, IElement } from "~/interfaces";
 
 export const useBoardStore = defineStore({
@@ -15,89 +16,43 @@ export const useBoardStore = defineStore({
         page: {
           title: "测试页面",
           description: "SS",
-          width: 700,
-          height: 1500,
+          width: 500,
+          height: 700,
+          top: 0,
+          left: 0,
           bgColor: "rgba(238, 238, 238, 1)",
         },
-        top: 0,
-        zoom: 64,
-        type: "page",
-        index: -1,
-        uuid: -1,
-        counter: 0,
-        originX: 0,
-        originY: 0,
-        startX: 685,
-        startY: 202,
-        moving: false,
-        animation: [],
-        playState: false,
-        activeElement: {
-          page: true,
-          title: "测试页面",
-          height: 1500,
-          endTime: "2023-02-27T19:21:42.484Z",
-          backgroundColor: "#653434",
-        },
-        widgets: [
-          {
-            type: "braid-pic",
-            isContainer: false,
-            isUpload: true,
-            hasGuide: true,
-            isChild: true,
-            dragable: true,
-            resizable: true,
+        zoom: 95,
+        widgets: {
+          22121: {
+            type: "pic",
+            top: 15,
             left: 185,
-            z: 0,
             href: "",
-            belong: "page",
-            animationName: "",
             width: 96,
             height: 96,
-            top: 264,
-            url: "blob:https://fireyy.github.io/a551bf20-3ec1-4544-9200-4361f838f3c3",
-            src: "images/1064023.jpg",
-            uuid: "488b0e6e59",
+            url: "http://localhost:7654/file/e/sKWy6q-adidas-tennis-bermuda-mens-tennis-shoe.png",
           },
-          {
-            type: "braid-bg",
-            isContainer: false,
-            hasGuide: false,
-            isUpload: true,
-            isChild: false,
-            dragable: false,
-            resizable: false,
+          423111: {
+            type: "pic",
+            top: 15,
+            left: 0,
             href: "",
-            belong: "page",
             width: 1628,
             height: 2048,
-            top: 0,
-            url: "blob:https://fireyy.github.io/995ce1e0-1d17-49a4-b1e4-2d23e08ad388",
-            src: "images/274842564_3046790442226979_6938009528578686494_n.jpg",
-            uuid: "203d07e9e0",
+            url: "http://localhost:7654/file/e/3jwOZb-adidas-shoes-black-and-white-photo.png",
           },
-          {
-            type: "braid-pic",
-            isContainer: false,
-            isUpload: true,
-            hasGuide: true,
-            isChild: true,
-            dragable: true,
-            resizable: true,
-            left: 143,
+          492821: {
+            type: "pic",
+            top: 15,
+            left: 326,
             z: 0,
             href: "",
-            belong: "page",
-            animationName: "",
             width: 324,
             height: 518,
-            top: 100,
-            url: "blob:https://fireyy.github.io/e12092ff-be67-4cab-b641-da3402c52726",
-            src: "images/2023-02-28_224257.jpg",
-            uuid: "85cd163630",
+            url: "http://localhost:7654/file/e/MQFKhq-youth-adidas-mat-wizard-wrestling-shoes-free-shipping-march.png",
           },
-        ],
+        },
       },
       boardElements: [],
       isLoaded: false,
@@ -131,17 +86,29 @@ export const useBoardStore = defineStore({
       console.log(res);
     },
     async addElement(element: IElement) {
-      const { $api } = useNuxtApp();
-      this.element.list = this.element.list.filter(
-        (ele) => !(ele.id === element.id)
-      );
-      const elementRes = await $api.boardElements.create({
-        board: this.board.id,
-        element: element.id,
-      });
-      this.boardElements.push(elementRes);
       console.clear();
-      console.log(elementRes);
+      console.log(element);
+      const newId = shortid.generate();
+      const newWidget = {
+        type: "pic",
+        top: 15,
+        left: 185,
+        href: "",
+        width: 96,
+        height: 96,
+        url: element.full_src,
+      };
+      console.log(newWidget);
+      this.details.widgets[newId] = newWidget;
+      // const { $api } = useNuxtApp();
+      // this.element.list = this.element.list.filter(
+      //   (ele) => !(ele.id === element.id)
+      // );
+      // const elementRes = await $api.boardElements.create({
+      //   board: this.board.id,
+      //   element: element.id,
+      // });
+      // this.boardElements.push(elementRes);
     },
     async removeElement(element: any) {
       this.element.list.push(element.element);

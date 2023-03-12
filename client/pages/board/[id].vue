@@ -40,7 +40,7 @@ loadBoardData.value(route.params.id);
 
 function publishBoard() {
   htmlToImage
-    .toPng(document.querySelector("#capture"))
+    .toPng(document.querySelector("#wrapper"))
     .then(function (dataUrl) {
       var image = new Image();
       image.src = dataUrl;

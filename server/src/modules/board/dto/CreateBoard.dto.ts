@@ -24,6 +24,9 @@ export class UpdateBoardDto {
   @IsNotEmpty()
   template: string;
 
+  @IsNotEmpty()
+  widgets: string;
+
   elements: any[];
 
   texture?: any;

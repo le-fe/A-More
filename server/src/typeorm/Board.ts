@@ -29,6 +29,9 @@ export class Board {
   @ManyToOne(() => Texture)
   texture: Texture;
 
+  @Column({ nullable: false, default: '[]' })
+  widgets: string;
+
   @ManyToOne(() => User)
   user: User;
 
@@ -40,7 +43,7 @@ export class Board {
   })
   createAt: Date;
 
-  @Column('boolean', {default: false})
+  @Column('boolean', { default: false })
   isPublished: boolean = false;
 
   @Column({
