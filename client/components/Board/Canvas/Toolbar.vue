@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, toRefs } from "vue";
 import { ColorPicker } from "vue-color-kit";
 import "vue-color-kit/dist/vue-color-kit.css";
 import { useBoardStore } from "@/store/board-detail";
 
-const { setCanvas, canvas, removeElement, details } = toRefs(useBoardStore());
+const { setCanvas, canvas, removeElement, details, selectedWidget } = toRefs(
+  useBoardStore()
+);
+
+const TABS = [{ name: "Information", value: "info" }];
 
 const TOOLBAR = [
   {
@@ -38,7 +42,10 @@ function setDimension({ w, h }: { w: number; h: number }) {
   <div
     class="shadow bg-white rounded-xl px-6 py-4 h-full overflow-y-auto select-none"
   >
-    <div>
+    <template v-if="selectedWidget">
+      <BoardWidgetUpdate />
+    </template>
+    <div v-else>
       <section>
         <h3 class="font-medium mb-2">{{ `Board Information` }}</h3>
         <ul class="pl-4">
@@ -113,19 +120,6 @@ function setDimension({ w, h }: { w: number; h: number }) {
           </div>
         </div>
       </div>
-    </div>
-    <pre>{{ details }}</pre>
-    <div>
-      <template v-for="toolbar in TOOLBAR" :key="toolbar.value">
-        <div
-          v-if="toolbar.showIfElementFocused && canvas.elementFocused"
-          class="flex items-center cursor-pointer hover:bg-slate-50 px-4 py-2 rounded-lg"
-          @click="() => toolbar.action(canvas.elementFocused)"
-        >
-          <Icon :name="toolbar.icon" />
-          <div class="ml-1 text-sm font-medium">{{ toolbar.name }}</div>
-        </div>
-      </template>
     </div>
   </div>
 </template>

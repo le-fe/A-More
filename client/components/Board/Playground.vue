@@ -10,12 +10,34 @@ const { details } = toRefs(useBoardStore());
 const wrapperStyles = computed(() => {
   const { page, zoom } = details.value;
   return {
-    backgroundColor: page.bgColor,
+    //backgroundColor: page.bgColor,
+    "background-image": `url("${details.value.page.bg.url}")`,
+    "background-position": "center",
+    "background-repeat": "no-repeat",
+    "background-size": "cover",
     width: page.width + "px",
     height: page.height + "px",
     transform: `scale(${zoom / 100})`,
   };
 });
+
+useKeypress({
+  keyEvent: "keydown",
+  keyBinds: [
+    //{
+    //  keyCode: 8,
+    //  success: deleteSelectedElementInBoard,
+    //  preventDefault: false,
+    //},
+  ],
+});
+
+function deleteSelectedElementInBoard() {
+  if (details.value.selectedWidgetId) {
+    delete details.value.widgets[details.value.selectedWidgetId];
+    details.value.selectedWidgetId = null;
+  }
+}
 
 onMounted(() => {
   listenDragComponents();
@@ -76,10 +98,22 @@ function listenDragComponents() {
       },
     });
 }
+
+function handleSelectWidget(uid?: any) {
+  details.value.selectedWidgetId = uid;
+}
+
+function handleClickOutsideBoard() {
+  //handleSelectWidget();
+}
 </script>
 <template>
   <div class="holder" id="viewport">
-    <div id="wrapper" :style="wrapperStyles">
+    <div
+      id="wrapper"
+      :style="wrapperStyles"
+      v-click-outside="handleClickOutsideBoard"
+    >
       <template v-for="(w, uid) in details.widgets" :key="uid">
         <div
           class="resize-drag"
@@ -88,7 +122,25 @@ function listenDragComponents() {
           :data-x="w.left"
           :data-y="w.top"
         >
-          <img :src="w.url" />
+          <div
+            class="relative border border-dashed"
+            :class="
+              details.selectedWidgetId === uid
+                ? 'border-slate-200'
+                : 'border-transparent'
+            "
+            @mousedown.prevent="() => handleSelectWidget(uid)"
+          >
+            <BoardBlockPic v-if="w.type === 'pic'" :block="w" :uid="uid" />
+            <BoardBlockText
+              v-else-if="w.type === 'free-text'"
+              :block="w"
+              :uid="uid"
+            />
+            <template v-else-if="w.type === 'shape'">
+              <BoardBlockShape :block="w" :uid="uid" />
+            </template>
+          </div>
         </div>
       </template>
     </div>

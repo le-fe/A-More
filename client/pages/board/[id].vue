@@ -20,7 +20,7 @@ const { loadBoardData, saveBoardData, board, isLoaded } = toRefs(
 
 const TABS = [
   { name: t("core.element"), ic: "element", value: "element" },
-  { name: t("core.template"), ic: "image", value: "template" },
+  { name: t("core.text"), ic: "text", value: "text" },
   { name: t("core.background"), ic: "background", value: "background" },
 ];
 const activeTab = ref<string>(TABS[0].value);
@@ -38,7 +38,8 @@ const TEMPLATE_COMPONENT = {
 
 loadBoardData.value(route.params.id);
 
-function publishBoard() {
+async function publishBoard() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   htmlToImage
     .toPng(document.querySelector("#wrapper"))
     .then(function (dataUrl) {
@@ -54,7 +55,7 @@ function publishBoard() {
 }
 </script>
 <template>
-  <div class="h-screen w-screen overflow-hidden">
+  <div class="h-screen w-screen overflow-hidden select-none">
     <div class="h-[65px] flex items-center justify-center">
       <div class="container mx-auto">
         <div class="flex justify-between">
@@ -83,7 +84,7 @@ function publishBoard() {
           </div>
           <div>
             <CButton
-              v-if="board.isPublished === false"
+              v-if="!board.isPublished"
               icon="publish"
               @click="publishBoard"
             >
@@ -111,7 +112,7 @@ function publishBoard() {
             </div>
           </div>
           <BoardElementList v-if="activeTab === 'element'" />
-          <BoardTemplates v-if="activeTab === 'template'" />
+          <BoardTemplates v-if="activeTab === 'text'" />
           <BoardTextureList v-if="activeTab === 'background'" class="mt-4" />
         </div>
       </div>

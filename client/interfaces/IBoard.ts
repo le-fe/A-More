@@ -9,4 +9,15 @@ type IBoard = {
   isPublished?: boolean;
 };
 
-export { IBoard };
+type IBoardElement = {
+  type?: string;
+  top: number;
+  left: number;
+  href?: string;
+  width: number;
+  height: number;
+  content: string;
+  label: string;
+};
+
+export { IBoard, IBoardElement };
