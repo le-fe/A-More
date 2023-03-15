@@ -30,13 +30,15 @@ export const useBoardStore = defineStore({
         zoom: 95,
         widgets: {
           "943z": {
-            type: "free-text",
+            type: "text",
             top: 25,
             left: 44,
             content: "Title",
             styles: {
               textColor: "#FFF",
               bgColor: "#aeaeae",
+              textAlign: "left",
+              borderRadius: 0,
             },
             attributes: {},
           },
@@ -101,6 +103,18 @@ export const useBoardStore = defineStore({
               },
             },
           },
+          z82t2: {
+            top: 100,
+            left: 100,
+            type: "shape",
+            with: 200,
+            height: 200,
+            content:
+              '<svg t="1678603615056" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3141"><path d="M896 704c0 16.213333-8.96 30.293333-22.613333 37.546667l-337.066667 189.44c-6.826667 5.12-15.36 7.68-24.32 7.68-8.96 0-17.493333-2.56-24.32-7.68l-337.066667-189.44A42.282667 42.282667 0 0 1 128 704v-384c0-16.213333 8.96-30.293333 22.613333-37.546667l337.066667-189.44c6.826667-5.12 15.36-7.68 24.32-7.68 8.96 0 17.493333 2.56 24.32 7.68l337.066667 189.44c13.653333 7.253333 22.613333 21.333333 22.613333 37.546667v384z" fill="" p-id="3142" data-spm-anchor-id="a313x.7781069.0.i1"></path></svg>',
+            styles: {
+              fill: "#000",
+            },
+          },
         },
         selectedWidgetId: null,
       },
@@ -160,6 +174,10 @@ export const useBoardStore = defineStore({
     addCustomElement(customElement: IBoardElement) {
       const newId = shortid.generate();
       this.details.widgets[newId] = customElement;
+    },
+    deleteSelectedElement() {
+      delete this.details.widgets[this.details.selectedWidgetId];
+      this.details.selectedWidgetId = null;
     },
     async removeElement(element: any) {
       this.element.list.push(element.element);

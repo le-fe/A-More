@@ -35,7 +35,6 @@
 		"@vueuse/nuxt": "^9.11.1",
 		"autoprefixer": "^10.4.13",
 		"axios": "^1.2.5",
-		"click-outside-vue3": "^4.0.1",
 		"daisyui": "^2.49.0",
 		"dayjs": "^1.11.7",
 		"html-to-image": "^1.11.11",
@@ -44,7 +43,6 @@
 		"nuxt": "latest",
 		"pinia": "^2.0.28",
 		"postcss": "^8.4.21",
-		"shortid": "^2.2.16",
-		"vue-color-kit": "^1.0.5"
+		"shortid": "^2.2.16"
 	}
 }

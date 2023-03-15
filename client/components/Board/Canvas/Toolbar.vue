@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
-import { ColorPicker } from "vue-color-kit";
-import "vue-color-kit/dist/vue-color-kit.css";
 import { useBoardStore } from "@/store/board-detail";
 
 const { setCanvas, canvas, removeElement, details, selectedWidget } = toRefs(
@@ -27,11 +25,6 @@ const DIMENSIONS = [
   { title: "500x500", class: "aspect-square", value: { w: 500, h: 500 } },
   { title: "600x800", class: "aspect-[3/4]", value: { w: 600, h: 800 } },
 ];
-
-function changeColor(color) {
-  const { r, g, b, a } = color.rgba;
-  details.value.page.bgColor = `rgba(${r}, ${g}, ${b}, ${a})`;
-}
 
 function setDimension({ w, h }: { w: number; h: number }) {
   details.value.page.width = w;
@@ -101,24 +94,7 @@ function setDimension({ w, h }: { w: number; h: number }) {
       </section>
       <div class="flex items-center mt-2">
         <span class="w-24">Color:</span>
-        <div class="dropdown">
-          <div
-            tabindex="0"
-            class="w-8 h-8 rounded-lg cursor-pointer border"
-            :style="{ backgroundColor: details.page.bgColor }"
-          ></div>
-          <div
-            tabindex="0"
-            class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <ColorPicker
-              theme="light"
-              :color="details.page.bgColor"
-              :sucker-hide="false"
-              @changeColor="changeColor"
-            />
-          </div>
-        </div>
+        <ColorPickerDropdown v-model="details.page.bgColor" />
       </div>
     </div>
   </div>

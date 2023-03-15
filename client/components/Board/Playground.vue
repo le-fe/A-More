@@ -79,7 +79,8 @@ function listenDragComponents() {
       ],
     })
     .resizable({
-      edges: { top: true, left: true, bottom: true, right: true },
+      edges: { top: false, left: false, bottom: true, right: true },
+      invert: "none",
       listeners: {
         move: function (event) {
           let { x, y } = event.target.dataset;
@@ -102,18 +103,10 @@ function listenDragComponents() {
 function handleSelectWidget(uid?: any) {
   details.value.selectedWidgetId = uid;
 }
-
-function handleClickOutsideBoard() {
-  //handleSelectWidget();
-}
 </script>
 <template>
   <div class="holder" id="viewport">
-    <div
-      id="wrapper"
-      :style="wrapperStyles"
-      v-click-outside="handleClickOutsideBoard"
-    >
+    <div id="wrapper" :style="wrapperStyles">
       <template v-for="(w, uid) in details.widgets" :key="uid">
         <div
           class="resize-drag"
@@ -133,7 +126,7 @@ function handleClickOutsideBoard() {
           >
             <BoardBlockPic v-if="w.type === 'pic'" :block="w" :uid="uid" />
             <BoardBlockText
-              v-else-if="w.type === 'free-text'"
+              v-else-if="w.type === 'text'"
               :block="w"
               :uid="uid"
             />

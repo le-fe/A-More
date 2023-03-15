@@ -4,10 +4,12 @@ core:
   profile: Profile
   error: Error
   create: Create
+  delete: Delete
   somethingWentWrong: Something went wrong!
   others: Others
   ideas: Ideas
   start: Start
+  shape: Shape
   element: Element
   text: Text
   image: Image
@@ -15,6 +17,17 @@ core:
   template: Template
   background: Background
   myBoard: My Board
+  label: Label
+  fontSize: Font size
+  backgroundColor: Background color
+  textColor: Text color
+  duplicate: Duplicate
+  content: Content
+  textAlign: Text align
+  left: Left
+  right: Right
+  center: Center
+  borderRadius: Border radius
 input:
   enterTitle: "Enter title"
 user:

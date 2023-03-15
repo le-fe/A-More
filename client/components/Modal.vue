@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useVModel } from "@vueuse/core";
+import { ref } from "vue";
+import { useVModel, onClickOutside } from "@vueuse/core";
 
 const props = defineProps({
   modelValue: {
@@ -11,11 +12,12 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue", "close"]);
 
 const isOpen = useVModel(props, "modelValue", emit);
+const popup = ref();
 
-function handleClickoutside() {
+onClickOutside(popup, () => {
   isOpen.value = false;
   emit("close");
-}
+});
 </script>
 
 <template>
@@ -28,7 +30,7 @@ function handleClickoutside() {
     role="dialog"
   >
     <div
-      v-click-outside="handleClickoutside"
+      ref="popup"
       class="relative w-full h-full max-w-xl md:h-auto bg-white rounded-lg"
     >
       <!-- Modal content -->

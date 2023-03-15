@@ -4,6 +4,7 @@ import UserModule from "../repository/modules/user";
 import BoardModule from "../repository/modules/board";
 import PostCategoriesModule from "../repository/modules/post-categories";
 import TextureModule from "../repository/modules/texture";
+import ShapeModule from "../repository/modules/shape";
 import ElementModule from "../repository/modules/element";
 import BoardElementModule from "../repository/modules/board-elements";
 
@@ -13,6 +14,7 @@ interface IApiInstance {
   user: UserModule;
   postCategories: PostCategoriesModule;
   texture: TextureModule;
+  shape: ShapeModule;
   board: BoardModule;
   element: ElementModule;
   boardElements: BoardElementModule;
@@ -32,6 +34,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     user: new UserModule(apiFetcher),
     postCategories: new PostCategoriesModule(apiFetcher),
     texture: new TextureModule(apiFetcher),
+    shape: new ShapeModule(apiFetcher),
     board: new BoardModule(apiFetcher),
     element: new ElementModule(apiFetcher),
     boardElements: new BoardElementModule(apiFetcher),

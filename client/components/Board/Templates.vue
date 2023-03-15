@@ -14,7 +14,7 @@ function addFreeText() {
   const newTextElement: IBoardElement = {
     top: 100,
     left: 100,
-    type: "free-text",
+    type: "text",
     width: 200,
     height: 150,
     content: "Text",

@@ -21,6 +21,7 @@ const { loadBoardData, saveBoardData, board, isLoaded } = toRefs(
 const TABS = [
   { name: t("core.element"), ic: "element", value: "element" },
   { name: t("core.text"), ic: "text", value: "text" },
+  { name: t("core.shape"), ic: "shape", value: "shape" },
   { name: t("core.background"), ic: "background", value: "background" },
 ];
 const activeTab = ref<string>(TABS[0].value);
@@ -111,9 +112,16 @@ async function publishBoard() {
               </template>
             </div>
           </div>
+          <!-- <Suspense> -->
           <BoardElementList v-if="activeTab === 'element'" />
-          <BoardTemplates v-if="activeTab === 'text'" />
-          <BoardTextureList v-if="activeTab === 'background'" class="mt-4" />
+          <BoardTemplates v-else-if="activeTab === 'text'" />
+          <BoardShapeList v-else-if="activeTab === 'shape'" />
+          <BoardTextureList
+            v-else-if="activeTab === 'background'"
+            class="mt-4"
+          />
+          <!-- <template #fallback> Loading... </template> -->
+          <!-- </Suspense> -->
         </div>
       </div>
       <div class="relative w-1/3 px-4">

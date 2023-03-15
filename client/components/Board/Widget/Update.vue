@@ -1,62 +1,32 @@
 <script setup lang="ts">
 import { ref, toRefs } from "vue";
 import { useBoardStore } from "@/store/board-detail";
+import { WIDGET_TYPE } from "@/constants";
 
-const { setCanvas, canvas, details, selectedWidget } = toRefs(useBoardStore());
+const { setCanvas, canvas, details, deleteSelectedElement, selectedWidget } =
+  toRefs(useBoardStore());
+const { t } = useLang();
 </script>
 
 <template>
   <div>
-    {{ details.selectedWidgetId }}
+    <h3 class="font-medium mb-2">{{ details.selectedWidgetId }}</h3>
     <div>
-      <ul v-if="details.widgets[details.selectedWidgetId]?.attributes?.label">
-        <li class="flex items-center">
-          <span class="w-24">Label:</span>
-          <input
-            type="text"
-            placeholder="Type here"
-            class="input input-bordered input-sm"
-            v-model="
-              details.widgets[details.selectedWidgetId].attributes.label.text
-            "
-          />
-        </li>
-        <li class="flex items-center">
-          <span class="w-24">Font size:</span>
-          <input
-            type="number"
-            placeholder="Type here"
-            class="input input-bordered input-sm"
-            v-model="
-              details.widgets[details.selectedWidgetId].attributes.label
-                .fontSize
-            "
-          />
-        </li>
-        <li class="flex items-center">
-          <span class="w-24">backgroundColor:</span>
-          <input
-            type="string"
-            placeholder="Type here"
-            class="input input-bordered input-sm"
-            v-model="
-              details.widgets[details.selectedWidgetId].attributes.label.bgColor
-            "
-          />
-        </li>
-        <li class="flex items-center">
-          <span class="w-24">tex color:</span>
-          <input
-            type="string"
-            placeholder="Type here"
-            class="input input-bordered input-sm"
-            v-model="
-              details.widgets[details.selectedWidgetId].attributes.label
-                .textColor
-            "
-          />
-        </li>
-      </ul>
+      <BoardWidgetUpdatePic v-if="selectedWidget.type === WIDGET_TYPE.PIC" />
+      <BoardWidgetUpdateText
+        v-else-if="selectedWidget.type === WIDGET_TYPE.TEXT"
+      />
+      <BoardWidgetUpdateShape
+        v-else-if="selectedWidget.type === WIDGET_TYPE.SHAPE"
+      />
+      <div class="mt-6">
+        <CButton size="sm" @click="deleteSelectedElement">
+          {{ t("core.delete") }}
+        </CButton>
+        <CButton class="ml-2" size="sm" @click="deleteSelectedElement">
+          {{ t("core.duplicate") }}
+        </CButton>
+      </div>
     </div>
   </div>
 </template>
